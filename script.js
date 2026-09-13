@@ -375,12 +375,19 @@ function initHeroCodeCopy() {
   const copyBtn = document.getElementById('hero-copy-code');
   if (!copyBtn) return;
 
-  const codeToCopy = `const developer = {
+  const codeToCopy = `export const developer: EngineerProfile = {
   name: "Salman",
-  role: "Senior Full-Stack Engineer",
-  focus: ["Performance", "Creative UI/UX", "Distributed Systems"],
-  stack: ["Next.js", "TypeScript", "Tailwind", "Node.js", "Docker"],
-  status: "Available for high-impact projects"
+  role: "Frontend Developer",
+  focusAreas: [
+    "Responsive Web Design",
+    "React & Modern JavaScript",
+    "Freelance Client Projects"
+  ],
+  metrics: {
+    lighthouseScore: 99,
+    yearsBuilding: 1,
+    cleanCode: true
+  }
 };`;
 
   copyBtn.addEventListener('click', async () => {
