@@ -326,33 +326,49 @@ function initContactForm() {
   }
 
   // Handle Form Submission
-  form.addEventListener('submit', (e) => {
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    // Prevent submission if already loading
     if (submitBtn.classList.contains('loading')) return;
 
-    // Check validity
     if (!form.checkValidity()) {
       form.reportValidity();
       return;
     }
 
-    // Toggle loading state
     submitBtn.classList.add('loading');
     submitBtn.setAttribute('disabled', 'true');
 
-    // Simulate async submission with network feedback
-    setTimeout(() => {
-      submitBtn.classList.remove('loading');
-      submitBtn.removeAttribute('disabled');
+    const formData = {
+      name: document.getElementById('contact-name').value.trim(),
+      email: document.getElementById('contact-email').value.trim(),
+      service: form.querySelector('input[name="service"]:checked')?.value,
+      message: messageInput.value.trim()
+    };
 
-      // Hide form and show success state
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to send message.');
+      }
+
       form.style.display = 'none';
       if (successState) {
         successState.classList.add('active');
       }
-    }, 1200);
+    } catch (err) {
+      alert(err.message || 'Something went wrong sending your message. Please try again.');
+    } finally {
+      submitBtn.classList.remove('loading');
+      submitBtn.removeAttribute('disabled');
+    }
   });
 
   // Reset form handler
