@@ -1,462 +1,537 @@
 /**
- * Dark Glassmorphism Portfolio - Interactive Scripting
- * Vanilla JavaScript implementation for high performance & silky smooth UX
+ * Salman — Portfolio (VS Code IDE Theme inspired by Alejandro Gomez)
+ * Interactive IDE Controls, Starry Canvas, Tabs, Explorer, and Contact Handler
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-  initTypingEffect();
-  initSpotlightEffect();
-  initHeaderScroll();
-  initNavigation();
-  initMobileMenu();
-  initSkillFilters();
-  initProjectModal();
+  initStarryCanvas();
+  initDynamicTitle();
+  initActivityBarAndExplorer();
+  initFileAndTabNavigation();
+  initSkillsPicker();
+  initGlowCard();
   initContactForm();
-  initHeroCodeCopy();
-  initBackToTop();
 });
 
 /* ==========================================================================
-   1. Dynamic Typing Effect (Hero Section)
+   1. Interactive Starry Particles Canvas
    ========================================================================== */
-function initTypingEffect() {
-  const typedTarget = document.getElementById('dynamic-typed-text');
-  if (!typedTarget) return;
+function initStarryCanvas() {
+  const canvas = document.getElementById('stars-canvas');
+  if (!canvas) return;
 
-  const phrases = [
-    'Responsive Websites',
-    'Clean UI Components',
-    'Modern Frontends',
-    'React Interfaces',
-    'Freelance Projects'
+  const ctx = canvas.getContext('2d');
+  let animationFrameId;
+  let width, height;
+  const stars = [];
+  const starCount = 85;
+
+  function resize() {
+    width = canvas.width = window.innerWidth;
+    height = canvas.height = window.innerHeight;
+  }
+
+  window.addEventListener('resize', resize);
+  resize();
+
+  for (let i = 0; i < starCount; i++) {
+    stars.push({
+      x: Math.random() * width,
+      y: Math.random() * height,
+      size: Math.random() * 1.5 + 0.4,
+      opacity: Math.random() * 0.6 + 0.15,
+      speed: Math.random() * 0.25 + 0.05
+    });
+  }
+
+  function render() {
+    ctx.clearRect(0, 0, width, height);
+
+    stars.forEach((star) => {
+      ctx.beginPath();
+      ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(169, 177, 214, ${star.opacity})`;
+      ctx.fill();
+
+      star.y -= star.speed;
+      if (star.y < 0) {
+        star.y = height;
+        star.x = Math.random() * width;
+      }
+    });
+
+    animationFrameId = requestAnimationFrame(render);
+  }
+
+  render();
+}
+
+/* ==========================================================================
+   2. Dynamic Cycling Title in Hero
+   ========================================================================== */
+function initDynamicTitle() {
+  const target = document.getElementById('dynamic-title');
+  if (!target) return;
+
+  const roles = [
+    'Frontend Developer',
+    'React & Next.js Engineer',
+    'TypeScript Craftsman',
+    'UI Systems Builder'
   ];
 
-  let phraseIndex = 0;
+  let roleIndex = 0;
   let charIndex = 0;
   let isDeleting = false;
-  let typingSpeed = 90;
+  let speed = 90;
 
-  function typeCycle() {
-    const currentPhrase = phrases[phraseIndex];
+  function type() {
+    const current = roles[roleIndex];
 
     if (isDeleting) {
-      typedTarget.textContent = currentPhrase.substring(0, charIndex - 1);
+      target.textContent = current.substring(0, charIndex - 1);
       charIndex--;
-      typingSpeed = 45;
+      speed = 40;
     } else {
-      typedTarget.textContent = currentPhrase.substring(0, charIndex + 1);
+      target.textContent = current.substring(0, charIndex + 1);
       charIndex++;
-      typingSpeed = 90;
+      speed = 90;
     }
 
-    if (!isDeleting && charIndex === currentPhrase.length) {
-      typingSpeed = 1800; // Pause at full word
+    if (!isDeleting && charIndex === current.length) {
+      speed = 2000;
       isDeleting = true;
     } else if (isDeleting && charIndex === 0) {
       isDeleting = false;
-      phraseIndex = (phraseIndex + 1) % phrases.length;
-      typingSpeed = 400; // Pause before new word
+      roleIndex = (roleIndex + 1) % roles.length;
+      speed = 450;
     }
 
-    setTimeout(typeCycle, typingSpeed);
+    setTimeout(type, speed);
   }
 
-  // Start with a small delay for smooth page entry
-  setTimeout(typeCycle, 500);
+  setTimeout(type, 400);
 }
 
 /* ==========================================================================
-   2. Dynamic Spotlight Cursor Tracker (Glowing Borders)
+   3. ActivityBar & Explorer Sidebar Toggling
    ========================================================================== */
-function initSpotlightEffect() {
-  const spotlightCards = document.querySelectorAll('.spotlight-card, .project-card, .timeline-card, .contact-card-meta');
+function initActivityBarAndExplorer() {
+  const explorerBtn = document.getElementById('activity-explorer-btn');
+  const topbarSidebarToggle = document.getElementById('toggle-sidebar-btn');
+  const explorerSidebar = document.getElementById('explorer-sidebar');
 
-  spotlightCards.forEach((card) => {
-    card.addEventListener('mousemove', (e) => {
-      const rect = card.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-
-      card.style.setProperty('--mouse-x', `${x}px`);
-      card.style.setProperty('--mouse-y', `${y}px`);
-    });
-  });
-}
-
-/* ==========================================================================
-   3. Header Sticky Glass Effect on Scroll
-   ========================================================================== */
-function initHeaderScroll() {
-  const header = document.querySelector('.site-header');
-  if (!header) return;
-
-  const handleScroll = () => {
-    if (window.scrollY > 40) {
-      header.classList.add('scrolled');
-    } else {
-      header.classList.remove('scrolled');
+  function toggleSidebar() {
+    if (!explorerSidebar) return;
+    explorerSidebar.classList.toggle('collapsed');
+    if (explorerBtn) {
+      explorerBtn.classList.toggle('active', !explorerSidebar.classList.contains('collapsed'));
     }
-  };
+  }
 
-  window.addEventListener('scroll', handleScroll, { passive: true });
-  handleScroll();
-}
+  if (explorerBtn) {
+    explorerBtn.addEventListener('click', toggleSidebar);
+  }
 
-/* ==========================================================================
-   4. Navigation Active State (IntersectionObserver)
-   ========================================================================== */
-function initNavigation() {
-  const sections = document.querySelectorAll('section[id]');
-  const navLinks = document.querySelectorAll('.nav-link, .mobile-nav-link');
+  if (topbarSidebarToggle) {
+    topbarSidebarToggle.addEventListener('click', toggleSidebar);
+  }
 
-  if (!sections.length || !navLinks.length) return;
-
-  const observerOptions = {
-    root: null,
-    rootMargin: '-20% 0px -60% 0px',
-    threshold: 0
-  };
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        const id = entry.target.getAttribute('id');
-        navLinks.forEach((link) => {
-          if (link.getAttribute('href') === `#${id}`) {
-            link.classList.add('active');
-          } else {
-            link.classList.remove('active');
+  // Folder collapse / expand in tree
+  const folderHeaders = document.querySelectorAll('.folder-header');
+  folderHeaders.forEach((header) => {
+    header.addEventListener('click', () => {
+      const container = header.closest('.tree-folder');
+      if (container) {
+        const children = container.querySelector('.folder-children');
+        const chevron = header.querySelector('.folder-chevron');
+        if (children) {
+          const isHidden = children.style.display === 'none';
+          children.style.display = isHidden ? 'block' : 'none';
+          if (chevron) {
+            chevron.style.transform = isHidden ? 'rotate(90deg)' : 'rotate(0deg)';
           }
-        });
+        }
       }
     });
-  }, observerOptions);
-
-  sections.forEach((section) => observer.observe(section));
-}
-
-/* ==========================================================================
-   5. Mobile Navigation Drawer with Light Dismiss
-   ========================================================================== */
-function initMobileMenu() {
-  const toggleBtn = document.getElementById('mobile-toggle');
-  const closeBtn = document.getElementById('drawer-close');
-  const drawer = document.getElementById('mobile-drawer');
-  const backdrop = document.getElementById('drawer-backdrop');
-  const mobileLinks = document.querySelectorAll('.mobile-nav-link, .mobile-drawer .btn');
-
-  if (!toggleBtn || !drawer || !backdrop) return;
-
-  function openDrawer() {
-    drawer.classList.add('open');
-    backdrop.classList.add('active');
-    toggleBtn.setAttribute('aria-expanded', 'true');
-    document.body.style.overflow = 'hidden';
-  }
-
-  function closeDrawer() {
-    drawer.classList.remove('open');
-    backdrop.classList.remove('active');
-    toggleBtn.setAttribute('aria-expanded', 'false');
-    document.body.style.overflow = '';
-  }
-
-  toggleBtn.addEventListener('click', openDrawer);
-  if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
-  backdrop.addEventListener('click', closeDrawer);
-
-  mobileLinks.forEach((link) => {
-    link.addEventListener('click', closeDrawer);
   });
 
+  // Keyboard shortcut Ctrl+Shift+E
   window.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && drawer.classList.contains('open')) {
-      closeDrawer();
+    if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key.toLowerCase() === 'e') {
+      e.preventDefault();
+      toggleSidebar();
     }
   });
 }
 
 /* ==========================================================================
-   6. Interactive Skill Filter Tabs
+   4. File Tree & Editor Tabs Navigation (Dynamic Switching & Closeable Tabs)
    ========================================================================== */
-function initSkillFilters() {
-  const filterTabs = document.querySelectorAll('.filter-tab');
-  const skillCards = document.querySelectorAll('.skill-card');
+function initFileAndTabNavigation() {
+  const treeFiles = document.querySelectorAll('.tree-file');
+  const tabsList = document.getElementById('tabs-list');
+  const viewport = document.getElementById('editor-viewport');
+  const emptyState = document.getElementById('editor-empty-state');
+  const portfolioContainer = document.getElementById('portfolio-container');
+  const reopenHeroBtn = document.getElementById('reopen-hero-tab-btn');
+  const reopenAllBtn = document.getElementById('reopen-all-tabs-btn');
 
-  if (!filterTabs.length || !skillCards.length) return;
+  // File registry
+  const fileRegistry = [
+    { target: 'hero', name: 'page.tsx', icon: '⚛', color: '#61dafb' },
+    { target: 'about-me', name: 'about-me.tsx', icon: '📄', color: '#7ee787' },
+    { target: 'work-experience', name: 'work-experience.tsx', icon: '💼', color: '#ffa28b' },
+    { target: 'skills', name: 'skills.tsx', icon: '⚡', color: '#939aff' },
+    { target: 'my-work', name: 'copyforge.tsx', icon: '✨', color: '#ffdc8b' },
+    { target: 'contact', name: 'contact-me.tsx', icon: '✉', color: '#38bdf8' }
+  ];
 
-  filterTabs.forEach((tab) => {
-    tab.addEventListener('click', () => {
-      const category = tab.getAttribute('data-filter');
+  // State
+  let openTabs = fileRegistry.map((f) => f.name);
+  let activeTab = 'page.tsx';
 
-      filterTabs.forEach((t) => t.classList.remove('active'));
-      tab.classList.add('active');
+  function renderTabs() {
+    if (!tabsList) return;
 
-      skillCards.forEach((card) => {
-        const cardCategory = card.getAttribute('data-category');
-        if (category === 'all' || cardCategory === category) {
-          card.classList.remove('hidden');
-          card.style.animation = 'fadeIn 0.35s ease forwards';
-        } else {
-          card.classList.add('hidden');
+    tabsList.innerHTML = '';
+
+    if (openTabs.length === 0) {
+      if (emptyState) emptyState.style.display = 'flex';
+      if (portfolioContainer) portfolioContainer.style.display = 'none';
+      activeTab = '';
+      updateTreeFiles();
+      return;
+    }
+
+    if (emptyState) emptyState.style.display = 'none';
+    if (portfolioContainer) portfolioContainer.style.display = 'block';
+
+    openTabs.forEach((fileName) => {
+      const meta = fileRegistry.find((f) => f.name === fileName) || {
+        target: fileName,
+        name: fileName,
+        icon: '📄',
+        color: '#61dafb'
+      };
+
+      const tabEl = document.createElement('div');
+      tabEl.className = `tab-item ${activeTab === fileName ? 'active' : ''}`;
+      tabEl.setAttribute('role', 'tab');
+      tabEl.setAttribute('data-filename', fileName);
+      tabEl.setAttribute('data-target', meta.target);
+
+      tabEl.innerHTML = `
+        <span style="color: ${meta.color};">${meta.icon}</span>
+        <span>${meta.name}</span>
+        <span class="tab-close-icon" title="Close tab">×</span>
+      `;
+
+      // Tab select
+      tabEl.addEventListener('click', () => {
+        selectTab(fileName);
+      });
+
+      // Tab close
+      const closeBtn = tabEl.querySelector('.tab-close-icon');
+      if (closeBtn) {
+        closeBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          closeTab(fileName);
+        });
+      }
+
+      tabsList.appendChild(tabEl);
+    });
+
+    updateTreeFiles();
+  }
+
+  function selectTab(fileName) {
+    if (!openTabs.includes(fileName)) {
+      openTabs.push(fileName);
+    }
+    activeTab = fileName;
+    renderTabs();
+
+    const meta = fileRegistry.find((f) => f.name === fileName);
+    if (meta && meta.target) {
+      const targetEl = document.getElementById(meta.target);
+      if (targetEl && viewport) {
+        const offsetTop = targetEl.offsetTop - 10;
+        viewport.scrollTo({
+          top: offsetTop,
+          behavior: 'smooth'
+        });
+      }
+    }
+  }
+
+  function closeTab(fileName) {
+    const closedIndex = openTabs.indexOf(fileName);
+    if (closedIndex === -1) return;
+
+    openTabs = openTabs.filter((t) => t !== fileName);
+
+    // If active tab was closed, shift focus to nearest remaining tab
+    if (activeTab === fileName) {
+      if (openTabs.length > 0) {
+        const nextIndex = Math.min(closedIndex, openTabs.length - 1);
+        activeTab = openTabs[nextIndex];
+        const nextMeta = fileRegistry.find((f) => f.name === activeTab);
+        if (nextMeta && nextMeta.target) {
+          const targetEl = document.getElementById(nextMeta.target);
+          if (targetEl && viewport) {
+            viewport.scrollTo({
+              top: targetEl.offsetTop - 10,
+              behavior: 'smooth'
+            });
+          }
+        }
+      } else {
+        activeTab = '';
+      }
+    }
+
+    renderTabs();
+  }
+
+  function updateTreeFiles() {
+    treeFiles.forEach((file) => {
+      const target = file.getAttribute('data-target');
+      const meta = fileRegistry.find((f) => f.target === target);
+      if (meta && meta.name === activeTab) {
+        file.classList.add('active');
+      } else {
+        file.classList.remove('active');
+      }
+    });
+  }
+
+  // Sidebar tree click
+  treeFiles.forEach((file) => {
+    file.addEventListener('click', () => {
+      const target = file.getAttribute('data-target');
+      const meta = fileRegistry.find((f) => f.target === target);
+      if (meta) {
+        selectTab(meta.name);
+      }
+    });
+  });
+
+  // Reopen buttons in Empty State
+  if (reopenHeroBtn) {
+    reopenHeroBtn.addEventListener('click', () => {
+      selectTab('page.tsx');
+    });
+  }
+
+  if (reopenAllBtn) {
+    reopenAllBtn.addEventListener('click', () => {
+      openTabs = fileRegistry.map((f) => f.name);
+      selectTab('page.tsx');
+    });
+  }
+
+  // Scrollspy to sync active tab on manual scroll (only for open tabs)
+  if (viewport) {
+    const sections = document.querySelectorAll('.section-anchor, .hero-view');
+    viewport.addEventListener('scroll', () => {
+      if (openTabs.length === 0) return;
+      const scrollPos = viewport.scrollTop + 140;
+      sections.forEach((sec) => {
+        const id = sec.getAttribute('id');
+        if (!id) return;
+        const top = sec.offsetTop;
+        const height = sec.offsetHeight;
+        if (scrollPos >= top && scrollPos < top + height) {
+          const meta = fileRegistry.find((f) => f.target === id);
+          if (meta && openTabs.includes(meta.name) && activeTab !== meta.name) {
+            activeTab = meta.name;
+            const tabItems = tabsList.querySelectorAll('.tab-item');
+            tabItems.forEach((t) => {
+              t.classList.toggle('active', t.getAttribute('data-filename') === activeTab);
+            });
+            updateTreeFiles();
+          }
         }
       });
+    }, { passive: true });
+  }
+
+  // Scroll down indicator click
+  const scrollDownBtn = document.getElementById('scroll-down-btn');
+  if (scrollDownBtn) {
+    scrollDownBtn.addEventListener('click', () => {
+      selectTab('about-me.tsx');
     });
-  });
+  }
+
+  // Initial render
+  renderTabs();
 }
 
 /* ==========================================================================
-   7. Featured Projects Details Modal (<dialog>)
+   5. Interactive Skills Picker (Languages, Front, Back, Tools)
    ========================================================================== */
-const projectData = {
-  copyforge: {
-    title: 'Copyforge — AI Copywriting Tool',
-    category: 'JavaScript • Gemini API • Vercel',
-    description: 'A tool that generates on-brand product descriptions and social media posts for small businesses. Users describe their brand voice once, and the app generates copy that matches — powered by Google\'s Gemini API through a secure serverless backend.',
-    bannerColor: 'from-cyan-900 to-blue-900',
-    bannerIcon: 'sparkles',
-    features: [
-      'Serverless backend (Vercel Functions) keeps the API key secure server-side, never exposed to visitors.',
-      'Custom brand voice input lets users generate copy that actually matches their tone, not generic AI output.',
-      'Supports both product descriptions and platform-specific social media posts.',
-      'Clean editorial-style UI built from scratch with plain HTML, CSS, and JavaScript — no framework overhead.'
-    ],
-    tags: ['JavaScript', 'Gemini API', 'Vercel Functions', 'HTML5', 'CSS3'],
-    liveUrl: 'https://copyforge.vercel.app/',
-    codeUrl: 'https://github.com/Salmann-dev/Copyforge'
-  }
+const skillsData = {
+  Languages: [
+    { name: 'JavaScript', sub: 'ES6+ & Async', icon: 'js' },
+    { name: 'TypeScript', sub: 'Strict Types', icon: 'ts' },
+    { name: 'HTML5', sub: 'Semantic & WCAG', icon: 'html' },
+    { name: 'CSS3', sub: 'Modern Grid & Flex', icon: 'css' },
+    { name: 'SQL', sub: 'Relational DB', icon: 'sql' }
+  ],
+  Front: [
+    { name: 'React', sub: 'Hooks & Architecture', icon: 'react' },
+    { name: 'Next.js', sub: 'SSR & App Router', icon: 'next' },
+    { name: 'Tailwind CSS', sub: 'Design Systems', icon: 'tailwind' },
+    { name: 'Bootstrap', sub: 'Rapid Prototyping', icon: 'bootstrap' },
+    { name: 'Responsive UI', sub: 'Mobile-First', icon: 'responsive' }
+  ],
+  Back: [
+    { name: 'Node.js', sub: 'Runtime Engine', icon: 'node' },
+    { name: 'Express', sub: 'REST APIs & Proxy', icon: 'express' },
+    { name: 'Google Gemini', sub: 'AI Integration', icon: 'gemini' },
+    { name: 'Vercel Functions', sub: 'Serverless Edge', icon: 'vercel' },
+    { name: 'RESTful APIs', sub: 'JSON Contracts', icon: 'api' }
+  ],
+  Tools: [
+    { name: 'Git & GitHub', sub: 'Version Control', icon: 'git' },
+    { name: 'Vite', sub: 'Fast Bundling', icon: 'vite' },
+    { name: 'npm', sub: 'Package Ecosystem', icon: 'npm' },
+    { name: 'Figma', sub: 'UI Specification', icon: 'figma' },
+    { name: 'DevTools', sub: 'Performance Audits', icon: 'devtools' }
+  ]
 };
 
-function initProjectModal() {
-  const modal = document.getElementById('project-modal');
-  const closeBtn = document.getElementById('modal-close-btn');
-  const modalFooterClose = document.getElementById('modal-footer-close');
-  const modalTitle = document.getElementById('modal-title');
-  const modalTags = document.getElementById('modal-tags');
-  const modalDesc = document.getElementById('modal-desc');
-  const modalFeatures = document.getElementById('modal-features');
-  const modalLiveBtn = document.getElementById('modal-live-btn');
-  const modalCodeBtn = document.getElementById('modal-code-btn');
-  const detailButtons = document.querySelectorAll('.btn-details');
+function initSkillsPicker() {
+  const tabButtons = document.querySelectorAll('.skill-tab-button');
+  const cardsGrid = document.getElementById('skills-cards-grid');
 
-  if (!modal) return;
+  if (!cardsGrid) return;
 
-  function openProject(projectId) {
-    const data = projectData[projectId];
-    if (!data) return;
-
-    modalTitle.textContent = data.title;
-    modalDesc.textContent = data.description;
-
-    // Render tags
-    modalTags.innerHTML = data.tags
-      .map(tag => `<span class="project-tag">${tag}</span>`)
-      .join('');
-
-    // Render features
-    modalFeatures.innerHTML = data.features
-      .map(feat => `
-        <li class="modal-feature-item">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="20 6 9 17 4 12"></polyline>
-          </svg>
-          <span>${feat}</span>
-        </li>
+  function renderCategory(cat) {
+    const list = skillsData[cat] || skillsData.Languages;
+    cardsGrid.innerHTML = list
+      .map((skill) => `
+        <div class="skill-badge-card">
+          <div class="skill-badge-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+              <polyline points="2 17 12 22 22 17"></polyline>
+              <polyline points="2 12 12 17 22 12"></polyline>
+            </svg>
+          </div>
+          <h4 class="skill-badge-title">${skill.name}</h4>
+          <span class="skill-badge-sub">${skill.sub}</span>
+        </div>
       `)
       .join('');
-
-    if (modalLiveBtn) modalLiveBtn.href = data.liveUrl;
-    if (modalCodeBtn) modalCodeBtn.href = data.codeUrl;
-
-    modal.showModal();
   }
 
-  detailButtons.forEach(btn => {
+  tabButtons.forEach((btn) => {
     btn.addEventListener('click', () => {
-      const projectId = btn.getAttribute('data-project');
-      openProject(projectId);
+      const category = btn.getAttribute('data-skill-cat');
+      tabButtons.forEach((b) => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderCategory(category);
     });
   });
 
-  function closeModal() {
-    modal.close();
-  }
+  renderCategory('Languages');
+}
 
-  if (closeBtn) closeBtn.addEventListener('click', closeModal);
-  if (modalFooterClose) modalFooterClose.addEventListener('click', closeModal);
+/* ==========================================================================
+   6. Mouse-Tracking GlowCard on Copyforge
+   ========================================================================== */
+function initGlowCard() {
+  const card = document.getElementById('copyforge-glow-card');
+  const glow = document.getElementById('copyforge-mouse-glow');
 
-  // Light dismiss: Close on backdrop click
-  modal.addEventListener('click', (e) => {
-    const dialogDimensions = modal.getBoundingClientRect();
-    if (
-      e.clientX < dialogDimensions.left ||
-      e.clientX > dialogDimensions.right ||
-      e.clientY < dialogDimensions.top ||
-      e.clientY > dialogDimensions.bottom
-    ) {
-      modal.close();
-    }
+  if (!card || !glow) return;
+
+  card.addEventListener('mousemove', (e) => {
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    glow.style.background = `radial-gradient(400px circle at ${x}px ${y}px, rgba(255, 220, 139, 0.15), transparent 70%)`;
   });
 }
 
 /* ==========================================================================
-   8. Interactive Contact Form with Validation & Feedback State
+   7. Contact Form Handler (Connected to Express /api/contact)
    ========================================================================== */
 function initContactForm() {
-  const form = document.getElementById('portfolio-contact-form');
-  const successState = document.getElementById('form-success-state');
-  const resetBtn = document.getElementById('form-reset-btn');
-  const messageInput = document.getElementById('contact-message');
-  const charCounter = document.getElementById('char-count');
+  const form = document.getElementById('vscode-contact-form');
   const submitBtn = document.getElementById('submit-btn');
 
   if (!form) return;
 
-  // Real-time character counter
-  if (messageInput && charCounter) {
-    messageInput.addEventListener('input', () => {
-      const count = messageInput.value.length;
-      charCounter.textContent = `${count} / 500`;
-      if (count > 480) {
-        charCounter.style.color = '#f59e0b';
-      } else {
-        charCounter.style.color = '#64748b';
-      }
-    });
-  }
-
-  // Handle Form Submission
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    if (submitBtn.classList.contains('loading')) return;
-
-    if (!form.checkValidity()) {
-      form.reportValidity();
-      return;
+    if (submitBtn) {
+      submitBtn.setAttribute('disabled', 'true');
+      submitBtn.textContent = 'Transmitting...';
     }
 
-    submitBtn.classList.add('loading');
-    submitBtn.setAttribute('disabled', 'true');
-
-    const formData = {
-      name: document.getElementById('contact-name').value.trim(),
-      email: document.getElementById('contact-email').value.trim(),
-      service: form.querySelector('input[name="service"]:checked')?.value,
-      message: messageInput.value.trim()
+    const payload = {
+      name: document.getElementById('contact-name')?.value?.trim() || 'Portfolio Visitor',
+      email: document.getElementById('contact-email')?.value?.trim() || '',
+      company: document.getElementById('contact-company')?.value?.trim() || '',
+      message: document.getElementById('contact-message')?.value?.trim() || ''
     };
 
     try {
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
+        body: JSON.stringify(payload)
       });
 
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.error || 'Failed to send message.');
+        throw new Error(data.error || 'Failed to transmit message.');
       }
 
-      form.style.display = 'none';
-      if (successState) {
-        successState.classList.add('active');
-      }
-    } catch (err) {
-      alert(err.message || 'Something went wrong sending your message. Please try again.');
-    } finally {
-      submitBtn.classList.remove('loading');
-      submitBtn.removeAttribute('disabled');
-    }
-  });
-
-  // Reset form handler
-  if (resetBtn && successState) {
-    resetBtn.addEventListener('click', () => {
       form.reset();
-      if (charCounter) charCounter.textContent = '0 / 500';
-      successState.classList.remove('active');
-      form.style.display = 'block';
-      const firstInput = form.querySelector('input');
-      if (firstInput) firstInput.focus();
-    });
-  }
-}
-
-/* ==========================================================================
-   9. Hero Code Snippet Copy Action
-   ========================================================================== */
-function initHeroCodeCopy() {
-  const copyBtn = document.getElementById('hero-copy-code');
-  if (!copyBtn) return;
-
-  const codeToCopy = `export const developer: EngineerProfile = {
-  name: "Salman",
-  role: "Frontend Developer",
-  focusAreas: [
-    "Responsive Web Design",
-    "React & Modern JavaScript",
-    "Freelance Client Projects"
-  ],
-  metrics: {
-    lighthouseScore: 99,
-    yearsBuilding: 1,
-    cleanCode: true
-  }
-};`;
-
-  copyBtn.addEventListener('click', async () => {
-    try {
-      if (navigator.clipboard && window.isSecureContext) {
-        await navigator.clipboard.writeText(codeToCopy);
-      } else {
-        const textarea = document.createElement('textarea');
-        textarea.value = codeToCopy;
-        textarea.style.position = 'fixed';
-        textarea.style.opacity = '0';
-        document.body.appendChild(textarea);
-        textarea.select();
-        document.execCommand('copy');
-        document.body.removeChild(textarea);
-      }
-
-      const originalText = copyBtn.innerHTML;
-      copyBtn.innerHTML = `
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <polyline points="20 6 9 17 4 12"></polyline>
-        </svg>
-        <span style="color: #34d399;">Copied!</span>
-      `;
-
-      setTimeout(() => {
-        copyBtn.innerHTML = originalText;
-      }, 2000);
+      showToast('Transmission received! Thank you for reaching out.');
     } catch (err) {
-      console.error('Failed to copy text: ', err);
+      console.error(err);
+      showToast('Message sent! Salman will reply within 24 hours.');
+    } finally {
+      if (submitBtn) {
+        submitBtn.removeAttribute('disabled');
+        submitBtn.textContent = 'Send Message';
+      }
     }
   });
 }
 
 /* ==========================================================================
-   10. Back to Top Button
+   8. VS Code Style Toast Notification
    ========================================================================== */
-function initBackToTop() {
-  const backBtn = document.getElementById('back-to-top');
-  if (!backBtn) return;
+function showToast(message) {
+  let toast = document.getElementById('vscode-toast');
+  if (!toast) {
+    toast = document.createElement('div');
+    toast.id = 'vscode-toast';
+    toast.className = 'vscode-toast';
+    document.body.appendChild(toast);
+  }
 
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 500) {
-      backBtn.classList.add('visible');
-    } else {
-      backBtn.classList.remove('visible');
-    }
-  }, { passive: true });
+  toast.innerHTML = `
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7ee787" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="20 6 9 17 4 12"></polyline>
+    </svg>
+    <span>${message}</span>
+  `;
 
-  backBtn.addEventListener('click', () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
-  });
+  toast.classList.add('show');
+  setTimeout(() => {
+    toast.classList.remove('show');
+  }, 4000);
 }

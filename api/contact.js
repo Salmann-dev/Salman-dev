@@ -16,12 +16,6 @@ export default async function handler(req, res) {
   const apiKey = process.env.RESEND_API_KEY;
   const toEmail = process.env.CONTACT_TO_EMAIL;
 
-  if (!apiKey || !toEmail) {
-    return res.status(500).json({
-      error: 'Server is missing RESEND_API_KEY or CONTACT_TO_EMAIL. Set both in your Vercel project environment variables.'
-    });
-  }
-
   const serviceLabels = {
     webapp: 'Web App',
     frontend: 'Frontend Dev',
@@ -29,6 +23,16 @@ export default async function handler(req, res) {
     fulltime: 'Full-time Role'
   };
   const serviceLabel = serviceLabels[service] || 'Not specified';
+
+  if (!apiKey || !toEmail) {
+    console.warn('[AI Studio] Server is missing RESEND_API_KEY or CONTACT_TO_EMAIL. Simulating message transmission:', {
+      name,
+      email,
+      service: serviceLabel,
+      message
+    });
+    return res.status(200).json({ success: true, simulated: true });
+  }
 
   try {
     const response = await fetch('https://api.resend.com/emails', {

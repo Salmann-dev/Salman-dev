@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Salman — Frontend Developer building modern, responsive web experiences with a clean dark UI.">
+  <meta property="og:title" content="Salman | Frontend Developer">
+  <meta property="og:description" content="Salman — Frontend Developer building modern, responsive web experiences with a clean dark UI.">
   <title>Salman | Frontend Developer</title>
 
   <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
@@ -19,884 +21,930 @@
 </head>
 <body>
 
-  <!-- Ambient Radiant Mesh & Floating Blur Orbs -->
-  <div class="ambient-mesh" aria-hidden="true">
-    <div class="ambient-orb orb-1"></div>
-    <div class="ambient-orb orb-2"></div>
-    <div class="ambient-orb orb-3"></div>
-  </div>
+  <div class="vscode-shell">
+    
+    <!-- ==========================================================================
+         1. TopBar (VS Code Window Header & Menu Bar)
+         ========================================================================== -->
+    <header class="vscode-topbar">
+      <div class="topbar-left">
+        <!-- VS Code Logo -->
+        <div class="vscode-logo" title="Visual Studio Code">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M23.15 2.587L18.21.21a1.494 1.494 0 0 0-1.705.29l-9.46 8.63-4.43-3.37a.997.997 0 0 0-1.37.17l-1.02 1.25a.997.997 0 0 0 .17 1.37l3.75 2.85-3.75 2.85a.997.997 0 0 0-.17 1.37l1.02 1.25c.34.42.95.49 1.37.17l4.43-3.37 9.46 8.63c.48.44 1.15.55 1.705.29l4.94-2.377c.52-.25.85-.78.85-1.36V3.947c0-.58-.33-1.11-.85-1.36zM18 17.5l-6.5-5.5L18 6.5v11z" fill="#007ACC"/>
+          </svg>
+        </div>
 
-  <!-- Background Subtle Grid Matrix -->
-  <div class="grid-overlay" aria-hidden="true"></div>
+        <!-- Menu Bar Items -->
+        <nav class="topbar-menu-items">
+          <button type="button" class="menu-item-btn">File</button>
+          <button type="button" class="menu-item-btn">Edit</button>
+          <button type="button" class="menu-item-btn">Selection</button>
+          <button type="button" class="menu-item-btn">View</button>
+          <button type="button" class="menu-item-btn">Go</button>
+          <button type="button" class="menu-item-btn">Run</button>
+          <button type="button" class="menu-item-btn">Terminal</button>
+          <button type="button" class="menu-item-btn">Help</button>
+        </nav>
+      </div>
 
-  <!-- ==========================================================================
-       1. Sticky Glassmorphic Navigation
-       ========================================================================== -->
-  <header class="site-header" id="site-header">
-    <div class="container">
-      <nav class="nav-glass-shell" aria-label="Main Navigation">
-        <!-- Brand Logo -->
-        <a href="#hero" class="brand-logo" aria-label="Salman Portfolio Home">
-          <span class="brand-symbol">&lt;/&gt;</span>
-          <span class="brand-text">Salman</span>
-        </a>
+      <!-- Center Title -->
+      <div class="topbar-center">
+        <span class="topbar-title">Salman — Portfolio [Visual Studio Code]</span>
+      </div>
 
-        <!-- Desktop Navigation Menu -->
-        <ul class="nav-menu">
-          <li><a href="#hero" class="nav-link active">Home</a></li>
-          <li><a href="#skills" class="nav-link">Skills</a></li>
-          <li><a href="#projects" class="nav-link">Projects</a></li>
-          <li><a href="#experience" class="nav-link">Experience</a></li>
-          <li><a href="#contact" class="nav-link">Contact</a></li>
-        </ul>
-
-        <!-- Desktop Actions -->
-        <div class="nav-actions">
-          <a href="#contact" class="btn btn-primary btn-talk btn-sm">
-            <span>Let's Talk</span>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <line x1="7" y1="17" x2="17" y2="7"></line>
-              <polyline points="7 7 17 7 17 17"></polyline>
+      <!-- Right Controls -->
+      <div class="topbar-right">
+        <div class="window-toggle-btns">
+          <button type="button" class="icon-btn" id="toggle-sidebar-btn" title="Toggle Primary Side Bar (Ctrl+B)">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+              <line x1="9" y1="3" x2="9" y2="21"></line>
             </svg>
-          </a>
+          </button>
+          <button type="button" class="icon-btn" title="Customize Layout">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+              <line x1="15" y1="3" x2="15" y2="21"></line>
+            </svg>
+          </button>
         </div>
 
-        <!-- Mobile Hamburger Toggle -->
-        <button class="mobile-toggle" id="mobile-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobile-drawer">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="3" y1="12" x2="21" y2="12"></line>
-            <line x1="3" y1="6" x2="21" y2="6"></line>
-            <line x1="3" y1="18" x2="21" y2="18"></line>
-          </svg>
-        </button>
-      </nav>
-    </div>
-  </header>
-
-  <!-- Mobile Drawer Overlay & Backdrop -->
-  <div class="drawer-backdrop" id="drawer-backdrop"></div>
-  <aside class="mobile-drawer" id="mobile-drawer" aria-label="Mobile Navigation Drawer">
-    <div>
-      <div class="drawer-header">
-        <div class="brand-logo">
-          <span class="brand-symbol">&lt;/&gt;</span>
-          <span class="brand-text">Salman</span>
+        <div class="window-controls">
+          <button type="button" class="win-control-btn" aria-label="Minimize">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+          </button>
+          <button type="button" class="win-control-btn" aria-label="Maximize">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+            </svg>
+          </button>
+          <button type="button" class="win-control-btn close" aria-label="Close">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
         </div>
-        <button class="drawer-close" id="drawer-close" aria-label="Close navigation menu">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="18" y1="6" x2="6" y2="18"></line>
-            <line x1="6" y1="6" x2="18" y2="18"></line>
-          </svg>
-        </button>
       </div>
+    </header>
 
-      <ul class="mobile-nav-list">
-        <li><a href="#hero" class="mobile-nav-link active">Home</a></li>
-        <li><a href="#skills" class="mobile-nav-link">Skills</a></li>
-        <li><a href="#projects" class="mobile-nav-link">Projects</a></li>
-        <li><a href="#experience" class="mobile-nav-link">Experience</a></li>
-        <li><a href="#contact" class="mobile-nav-link">Contact</a></li>
-      </ul>
-    </div>
-
-    <div>
-      <a href="#contact" class="btn btn-primary" style="width: 100%;">Get In Touch</a>
-    </div>
-  </aside>
-
-  <main>
     <!-- ==========================================================================
-         2. Hero Section
+         2. Main Workspace (ActivityBar + Explorer + Editor Pane)
          ========================================================================== -->
-    <section class="hero-section" id="hero">
-      <div class="container">
-        <div class="hero-grid">
-          <!-- Left Column: Copy & Dynamic Typing Headline -->
-          <div class="hero-content">
-            <div class="status-pill">
-              <span class="pulse-dot"></span>
-              <span>Available for high-impact projects & roles</span>
+    <div class="vscode-main">
+      
+      <!-- ActivityBar (Left Vertical Icon Rail) -->
+      <aside class="activity-bar" aria-label="Activity Bar">
+        <div class="activity-group-top">
+          <!-- Explorer (Active) -->
+          <button type="button" class="activity-icon-btn active" id="activity-explorer-btn" aria-label="Explorer">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path>
+              <polyline points="13 2 13 9 20 9"></polyline>
+            </svg>
+            <span class="activity-tooltip">Explorer (Ctrl+Shift+E)</span>
+          </button>
+
+          <!-- Search -->
+          <button type="button" class="activity-icon-btn" aria-label="Search">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <span class="activity-tooltip">Search (Ctrl+Shift+F)</span>
+          </button>
+
+          <!-- Source Control -->
+          <button type="button" class="activity-icon-btn" aria-label="Source Control">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="18" cy="18" r="3"></circle>
+              <circle cx="6" cy="6" r="3"></circle>
+              <path d="M6 9v12"></path>
+              <path d="M18 9a9 9 0 0 0-9 9"></path>
+            </svg>
+            <span class="activity-tooltip">Source Control (Ctrl+Shift+G)</span>
+          </button>
+
+          <!-- Run and Debug -->
+          <button type="button" class="activity-icon-btn" aria-label="Run and Debug">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="5 3 19 12 5 21 5 3"></polygon>
+            </svg>
+            <span class="activity-tooltip">Run and Debug (Ctrl+Shift+D)</span>
+          </button>
+
+          <!-- Extensions -->
+          <button type="button" class="activity-icon-btn" aria-label="Extensions">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="2" width="9" height="9" rx="1"></rect>
+              <rect x="13" y="2" width="9" height="9" rx="1"></rect>
+              <rect x="2" y="13" width="9" height="9" rx="1"></rect>
+              <rect x="13" y="13" width="9" height="9" rx="1"></rect>
+            </svg>
+            <span class="activity-tooltip">Extensions (Ctrl+Shift+X)</span>
+          </button>
+        </div>
+
+        <div class="activity-group-bottom">
+          <!-- Accounts -->
+          <button type="button" class="activity-icon-btn" aria-label="Accounts">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+            <span class="activity-tooltip">Accounts</span>
+          </button>
+
+          <!-- Settings Gear -->
+          <button type="button" class="activity-icon-btn" aria-label="Manage Settings">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="3"></circle>
+              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+            </svg>
+            <span class="activity-tooltip">Manage</span>
+          </button>
+        </div>
+      </aside>
+
+      <!-- Collapsible Explorer Sidebar -->
+      <aside class="explorer-sidebar" id="explorer-sidebar" aria-label="File Explorer">
+        <div class="explorer-header">
+          <span>Explorer</span>
+          <div class="explorer-actions">
+            <button type="button" class="explorer-action-btn" title="New File">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="12" y1="18" x2="12" y2="12"></line>
+                <line x1="9" y1="15" x2="15" y2="15"></line>
+              </svg>
+            </button>
+            <button type="button" class="explorer-action-btn" title="Refresh">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="23 4 23 10 17 10"></polyline>
+                <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
+              </svg>
+            </button>
+            <button type="button" class="explorer-action-btn" title="Collapse Folders">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="4 14 10 14 10 20"></polyline>
+                <polyline points="20 10 14 10 14 4"></polyline>
+                <line x1="14" y1="10" x2="21" y2="3"></line>
+                <line x1="3" y1="21" x2="10" y2="14"></line>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="explorer-tree">
+          <!-- Open editors section -->
+          <div class="tree-section-title" id="open-editors-toggle">
+            <svg class="folder-chevron" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="transform: rotate(90deg);">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+            <span>Open editors</span>
+          </div>
+
+          <!-- Project root -->
+          <div class="tree-section-title">
+            <svg class="folder-chevron" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="transform: rotate(90deg);">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+            <span>Portfolio</span>
+          </div>
+
+          <!-- src folder -->
+          <div class="tree-folder">
+            <div class="folder-header">
+              <svg class="folder-chevron" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="transform: rotate(90deg);">
+                <polyline points="9 18 15 12 9 6"></polyline>
+              </svg>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="#525df3" opacity="0.9">
+                <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+              </svg>
+              <span>src</span>
             </div>
 
-            <h1 class="hero-title">
-              Building Clean, <span class="gradient-text-glow">Modern Web Experiences</span>
-            </h1>
+            <div class="folder-children">
+              <!-- app folder -->
+              <div class="tree-folder">
+                <div class="folder-header">
+                  <svg class="folder-chevron" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="transform: rotate(90deg);">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                  </svg>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="#61dafb">
+                    <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                  </svg>
+                  <span>app</span>
+                </div>
 
-            <div class="hero-subtitle-container" aria-live="polite">
-              <span class="typing-prefix">Building</span>
-              <span class="typing-dynamic" id="dynamic-typed-text"></span>
-              <span class="typing-cursor">|</span>
+                <div class="folder-children">
+                  <div class="tree-file active" data-target="hero">
+                    <span class="file-icon" style="color: #61dafb;">⚛</span>
+                    <span>page.tsx</span>
+                  </div>
+                  <div class="tree-file" data-target="about-me">
+                    <span class="file-icon" style="color: #7ee787;">📄</span>
+                    <span>about-me.tsx</span>
+                  </div>
+                  <div class="tree-file" data-target="work-experience">
+                    <span class="file-icon" style="color: #ffa28b;">💼</span>
+                    <span>work-experience.tsx</span>
+                  </div>
+                  <div class="tree-file" data-target="skills">
+                    <span class="file-icon" style="color: #939aff;">⚡</span>
+                    <span>skills.tsx</span>
+                  </div>
+                  <div class="tree-file" data-target="contact">
+                    <span class="file-icon" style="color: #38bdf8;">✉</span>
+                    <span>contact-me.tsx</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- projects folder (Only Copyforge!) -->
+              <div class="tree-folder">
+                <div class="folder-header">
+                  <svg class="folder-chevron" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="transform: rotate(90deg);">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                  </svg>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="#ffdc8b">
+                    <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                  </svg>
+                  <span>projects</span>
+                </div>
+
+                <div class="folder-children">
+                  <div class="tree-file" data-target="my-work">
+                    <span class="file-icon" style="color: #ffdc8b;">✨</span>
+                    <span>copyforge.tsx</span>
+                  </div>
+                </div>
+              </div>
+
             </div>
+          </div>
+        </div>
+      </aside>
 
-            <p class="hero-description">
-              I'm a frontend developer building responsive websites and interfaces with HTML, CSS, JavaScript, React, and Tailwind — currently studying IT while taking on freelance projects.
+      <!-- Editor Pane (Tabs + Scrollable Viewport) -->
+      <section class="editor-pane">
+        
+        <!-- Tabs Bar -->
+        <div class="tabs-bar" role="tablist">
+          <div class="tabs-list" id="tabs-list">
+            <div class="tab-item active" data-target="hero" data-filename="page.tsx" role="tab">
+              <span style="color: #61dafb;">⚛</span>
+              <span>page.tsx</span>
+              <span class="tab-close-icon" title="Close tab">×</span>
+            </div>
+            <div class="tab-item" data-target="about-me" data-filename="about-me.tsx" role="tab">
+              <span style="color: #7ee787;">📄</span>
+              <span>about-me.tsx</span>
+              <span class="tab-close-icon" title="Close tab">×</span>
+            </div>
+            <div class="tab-item" data-target="work-experience" data-filename="work-experience.tsx" role="tab">
+              <span style="color: #ffa28b;">💼</span>
+              <span>work-experience.tsx</span>
+              <span class="tab-close-icon" title="Close tab">×</span>
+            </div>
+            <div class="tab-item" data-target="skills" data-filename="skills.tsx" role="tab">
+              <span style="color: #939aff;">⚡</span>
+              <span>skills.tsx</span>
+              <span class="tab-close-icon" title="Close tab">×</span>
+            </div>
+            <div class="tab-item" data-target="my-work" data-filename="copyforge.tsx" role="tab">
+              <span style="color: #ffdc8b;">✨</span>
+              <span>copyforge.tsx</span>
+              <span class="tab-close-icon" title="Close tab">×</span>
+            </div>
+            <div class="tab-item" data-target="contact" data-filename="contact-me.tsx" role="tab">
+              <span style="color: #38bdf8;">✉</span>
+              <span>contact-me.tsx</span>
+              <span class="tab-close-icon" title="Close tab">×</span>
+            </div>
+          </div>
+
+          <div class="tabs-right-actions">
+            <button type="button" class="icon-btn" title="Split Editor Right">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                <line x1="12" y1="3" x2="12" y2="21"></line>
+              </svg>
+            </button>
+            <button type="button" class="icon-btn" title="More Actions">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="1"></circle>
+                <circle cx="19" cy="12" r="1"></circle>
+                <circle cx="5" cy="12" r="1"></circle>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Scrollable Editor Viewport -->
+        <div class="editor-viewport" id="editor-viewport">
+          
+          <!-- Background Starry Particles Canvas -->
+          <canvas id="stars-canvas"></canvas>
+
+          <!-- Empty State (When all tabs are closed) -->
+          <div id="editor-empty-state" style="display: none; min-height: 70vh; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 3rem; color: var(--gray-500); position: relative; z-index: 10;">
+            <div style="width: 56px; height: 56px; border-radius: 12px; background: rgba(255, 255, 255, 0.04); border: 1px solid var(--dark-border); display: flex; align-items: center; justify-content: center; margin-bottom: 1.25rem; color: var(--blue-100);">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                <line x1="9" y1="3" x2="9" y2="21"></line>
+              </svg>
+            </div>
+            <h3 style="font-size: 1.25rem; font-weight: 700; color: #fff; margin-bottom: 0.5rem;">No open editor tabs</h3>
+            <p style="font-size: 0.925rem; max-width: 44ch; line-height: 1.6; color: var(--gray-500); margin-bottom: 1.5rem;">
+              Select a file from the explorer sidebar on the left (<span style="color: var(--blue-100); font-family: var(--font-mono);">Ctrl+Shift+E</span>) to open it in the editor.
             </p>
-
-            <div class="hero-actions">
-              <a href="#projects" class="btn btn-primary">
-                <span>Explore Featured Work</span>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                  <line x1="5" y1="12" x2="19" y2="12"></line>
-                  <polyline points="12 5 19 12 12 19"></polyline>
-                </svg>
-              </a>
-
-              <a href="#contact" class="btn btn-glass">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                  <polyline points="22,6 12,13 2,6"></polyline>
-                </svg>
-                <span>Get In Touch</span>
-              </a>
-            </div>
-
-            <!-- Tech Badges -->
-            <div class="hero-tech-row">
-              <span class="tech-label">Core Stack:</span>
-              <span class="tech-pill">Next.js 14</span>
-              <span class="tech-pill">TypeScript</span>
-              <span class="tech-pill">Tailwind CSS</span>
-              <span class="tech-pill">Node.js</span>
-              <span class="tech-pill">Docker</span>
+            <div style="display: flex; gap: 0.75rem;">
+              <button id="reopen-hero-tab-btn" class="btn btn-primary btn-sm" style="font-family: var(--font-mono); font-size: 12px; cursor: pointer;">
+                Open page.tsx
+              </button>
+              <button id="reopen-all-tabs-btn" class="btn btn-secondary btn-sm" style="font-family: var(--font-mono); font-size: 12px; cursor: pointer;">
+                Open All Files
+              </button>
             </div>
           </div>
 
-          <!-- Right Column: Abstract Geometric Graphic Card -->
-          <div class="hero-visual-wrapper">
-            <div class="hero-graphic-card">
-              <svg class="hero-abstract-svg" viewBox="0 0 460 380" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Abstract geometric network graphic in teal tones">
-                <defs>
-                  <filter id="teal-glow" x="-30%" y="-30%" width="160%" height="160%">
-                    <feGaussianBlur stdDeviation="6" result="blur"/>
-                    <feMerge>
-                      <feMergeNode in="blur"/>
-                      <feMergeNode in="SourceGraphic"/>
-                    </feMerge>
-                  </filter>
-                  <filter id="node-glow" x="-40%" y="-40%" width="180%" height="180%">
-                    <feGaussianBlur stdDeviation="3" result="blur"/>
-                    <feMerge>
-                      <feMergeNode in="blur"/>
-                      <feMergeNode in="SourceGraphic"/>
-                    </feMerge>
-                  </filter>
-                  <radialGradient id="center-halo" cx="50%" cy="50%" r="50%">
-                    <stop offset="0%" stop-color="#2DD4BF" stop-opacity="0.25"/>
-                    <stop offset="60%" stop-color="#5EEAD4" stop-opacity="0.06"/>
-                    <stop offset="100%" stop-color="#2DD4BF" stop-opacity="0"/>
-                  </radialGradient>
-                </defs>
+          <div class="portfolio-container" id="portfolio-container">
+            
+            <!-- ==============================================================
+                 A. Hero Section (Alejandro Gomez Inspired)
+                 ============================================================== -->
+            <section class="hero-view" id="hero">
+              <div>
+                <h1 class="hero-greeting">
+                  Salman <span class="wave">👋</span>
+                </h1>
 
-                <!-- Subtle Center Radial Halo -->
-                <circle cx="230" cy="190" r="140" fill="url(#center-halo)"/>
-
-                <!-- Coordinate Grid Crosshairs -->
-                <line x1="50" y1="190" x2="410" y2="190" stroke="#2DD4BF" stroke-opacity="0.12" stroke-width="1" stroke-dasharray="3 6"/>
-                <line x1="230" y1="30" x2="230" y2="350" stroke="#2DD4BF" stroke-opacity="0.12" stroke-width="1" stroke-dasharray="3 6"/>
-
-                <!-- Concentric Circles / Orbits -->
-                <circle cx="230" cy="190" r="150" stroke="#2DD4BF" stroke-opacity="0.15" stroke-width="1" stroke-dasharray="6 8" class="svg-orbit-outer"/>
-                <circle cx="230" cy="190" r="110" stroke="#5EEAD4" stroke-opacity="0.22" stroke-width="1.2"/>
-                <circle cx="230" cy="190" r="70" stroke="#2DD4BF" stroke-opacity="0.28" stroke-width="1.2" stroke-dasharray="4 6" class="svg-orbit-inner"/>
-                <circle cx="230" cy="190" r="32" stroke="#5EEAD4" stroke-opacity="0.45" stroke-width="1.5"/>
-
-                <!-- Primary Geometric Polygon Outline -->
-                <polygon points="230,70 335,115 375,190 325,275 230,310 135,275 85,190 125,115" stroke="#2DD4BF" stroke-opacity="0.32" stroke-width="1.2" fill="none"/>
-
-                <!-- Secondary Inner Geometric Facets -->
-                <polygon points="230,120 295,150 295,230 230,260 165,230 165,150" stroke="#5EEAD4" stroke-opacity="0.25" stroke-width="1" fill="none"/>
-
-                <!-- Thin Radial Connecting Lines -->
-                <line x1="230" y1="190" x2="230" y2="70" stroke="#2DD4BF" stroke-opacity="0.5" stroke-width="1.2"/>
-                <line x1="230" y1="190" x2="335" y2="115" stroke="#2DD4BF" stroke-opacity="0.5" stroke-width="1.2"/>
-                <line x1="230" y1="190" x2="375" y2="190" stroke="#2DD4BF" stroke-opacity="0.5" stroke-width="1.2"/>
-                <line x1="230" y1="190" x2="325" y2="275" stroke="#2DD4BF" stroke-opacity="0.4" stroke-width="1.2"/>
-                <line x1="230" y1="190" x2="230" y2="310" stroke="#2DD4BF" stroke-opacity="0.4" stroke-width="1.2"/>
-                <line x1="230" y1="190" x2="135" y2="275" stroke="#2DD4BF" stroke-opacity="0.4" stroke-width="1.2"/>
-                <line x1="230" y1="190" x2="85" y2="190" stroke="#2DD4BF" stroke-opacity="0.5" stroke-width="1.2"/>
-                <line x1="230" y1="190" x2="125" y2="115" stroke="#2DD4BF" stroke-opacity="0.5" stroke-width="1.2"/>
-
-                <!-- Geometric Cross Connecting Lines -->
-                <line x1="125" y1="115" x2="230" y2="120" stroke="#5EEAD4" stroke-opacity="0.35" stroke-width="1"/>
-                <line x1="335" y1="115" x2="230" y2="120" stroke="#5EEAD4" stroke-opacity="0.35" stroke-width="1"/>
-                <line x1="375" y1="190" x2="295" y2="230" stroke="#5EEAD4" stroke-opacity="0.35" stroke-width="1"/>
-                <line x1="325" y1="275" x2="230" y2="260" stroke="#5EEAD4" stroke-opacity="0.3" stroke-width="1"/>
-                <line x1="135" y1="275" x2="230" y2="260" stroke="#5EEAD4" stroke-opacity="0.3" stroke-width="1"/>
-                <line x1="85" y1="190" x2="165" y2="150" stroke="#5EEAD4" stroke-opacity="0.35" stroke-width="1"/>
-
-                <!-- Ambient Constellation Micro-Dots -->
-                <circle cx="195" cy="100" r="1.5" fill="#5EEAD4" opacity="0.6"/>
-                <circle cx="280" cy="95" r="1.5" fill="#2DD4BF" opacity="0.6"/>
-                <circle cx="360" cy="150" r="2" fill="#5EEAD4" opacity="0.5"/>
-                <circle cx="355" cy="235" r="1.5" fill="#2DD4BF" opacity="0.5"/>
-                <circle cx="275" cy="290" r="2" fill="#5EEAD4" opacity="0.6"/>
-                <circle cx="180" cy="295" r="1.5" fill="#2DD4BF" opacity="0.5"/>
-                <circle cx="105" cy="235" r="2" fill="#5EEAD4" opacity="0.6"/>
-                <circle cx="100" cy="150" r="1.5" fill="#2DD4BF" opacity="0.5"/>
-
-                <!-- Outer Polygon Vertices (Dots) -->
-                <circle cx="230" cy="70" r="5" fill="#5EEAD4" filter="url(#node-glow)"/>
-                <circle cx="335" cy="115" r="4.5" fill="#2DD4BF"/>
-                <circle cx="375" cy="190" r="4" fill="#5EEAD4"/>
-                <circle cx="325" cy="275" r="4.5" fill="#2DD4BF"/>
-                <circle cx="230" cy="310" r="5" fill="#5EEAD4" filter="url(#node-glow)"/>
-                <circle cx="135" cy="275" r="4.5" fill="#2DD4BF"/>
-                <circle cx="85" cy="190" r="4" fill="#5EEAD4"/>
-                <circle cx="125" cy="115" r="5" fill="#2DD4BF" filter="url(#node-glow)"/>
-
-                <!-- Inner Facet Nodes (Dots) -->
-                <circle cx="230" cy="120" r="3.5" fill="#5EEAD4"/>
-                <circle cx="295" cy="150" r="3" fill="#2DD4BF"/>
-                <circle cx="295" cy="230" r="3" fill="#5EEAD4"/>
-                <circle cx="230" cy="260" r="3.5" fill="#2DD4BF"/>
-                <circle cx="165" cy="230" r="3" fill="#5EEAD4"/>
-                <circle cx="165" cy="150" r="3" fill="#2DD4BF"/>
-
-                <!-- Central Glowing Core Node -->
-                <circle cx="230" cy="190" r="9" fill="#2DD4BF" filter="url(#teal-glow)"/>
-                <circle cx="230" cy="190" r="4.5" fill="#0F1B2D"/>
-                <circle cx="230" cy="190" r="2" fill="#5EEAD4"/>
-              </svg>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ==========================================================================
-         3. Interactive Skills Grid
-         ========================================================================== -->
-    <section class="section" id="skills">
-      <div class="container">
-        <div class="section-header">
-          <span class="section-tag">Capabilities &amp; Tech Stack</span>
-          <h2 class="section-title">Crafted with Modern Technologies</h2>
-          <p class="section-subtitle">
-            Hover over cards to see dynamic spotlight glowing borders. Filter by domain to inspect technical proficiencies and ecosystem toolkits.
-          </p>
-        </div>
-
-        <!-- Filter Tabs -->
-        <div class="filter-tabs-wrapper">
-          <div class="filter-tabs" role="tablist" aria-label="Skill Categories">
-            <button class="filter-tab active" data-filter="all" role="tab" aria-selected="true">All Skills</button>
-            <button class="filter-tab" data-filter="frontend" role="tab" aria-selected="false">Frontend</button>
-            <button class="filter-tab" data-filter="backend" role="tab" aria-selected="false">Backend</button>
-            <button class="filter-tab" data-filter="tools" role="tab" aria-selected="false">Tools</button>
-          </div>
-        </div>
-
-        <!-- Skills Grid Container -->
-        <div class="skills-grid" id="skills-grid">
-          <!-- Skill Card 1: HTML5 -->
-          <article class="spotlight-card skill-card" data-category="frontend">
-            <div class="skill-card-inner">
-              <div class="skill-icon-wrap" style="color: #e34f26;">
-                  <svg viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M3.7 2L5.2 19.3L12 21.2L18.8 19.3L20.3 2H3.7ZM16.8 7.3H8.9L9.1 9.7H16.6L16 16.3L12 17.4L8 16.3L7.7 13H9.9L10.1 14.7L12 15.2L13.9 14.7L14.1 12H7.5L6.9 5.1H17L16.8 7.3Z"/>
-                  </svg>
+                <div class="flex items-center gap-2 text-sm md:text-base font-medium text-emerald-400 mb-3">
+                  <span class="flex h-2 w-2 relative">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                  </span>
+                  <span>Looking for a job</span>
+                  <span class="text-slate-500">/</span>
+                  <span class="text-blue-400 font-semibold">
+                    Front-End / Full-Stack Developer
+                  </span>
                 </div>
-              <h3 class="skill-title">HTML5</h3>
-              <span class="skill-accent-bar" style="background-color: #e34f26;"></span>
-              <p class="skill-desc">Semantic markup, accessible page structure, forms, and clean component-based layouts.</p>
-              <div class="skill-tags">
-                <span class="tag-item">Semantic HTML</span>
-                <span class="tag-item">Accessibility</span>
-                <span class="tag-item">Forms</span>
-              </div>
-            </div>
-          </article>
 
-          <!-- Skill Card 2: CSS3 -->
-          <article class="spotlight-card skill-card" data-category="frontend">
-            <div class="skill-card-inner">
-              <div class="skill-icon-wrap" style="color: #1572b6;">
-                  <svg viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M3.7 2L5.2 19.3L12 21.2L18.8 19.3L20.3 2H3.7ZM16.9 7.3H12V9.7H16.7L16.1 16.3L12 17.4V15.2L13.9 14.7L14.1 12H12V9.7H14.3L14.5 7.3H12V5.1H17.1L16.9 7.3ZM7.1 5.1H12V7.3H9.3L9.5 9.7H12V12H7.7L7.1 5.1ZM8 13H10.2L10.4 14.7L12 15.2V17.4L8 16.3L7.7 13H8Z"/>
-                  </svg>
-                </div>
-              <h3 class="skill-title">CSS3</h3>
-              <span class="skill-accent-bar" style="background-color: #1572b6;"></span>
-              <p class="skill-desc">Responsive layouts with Flexbox and Grid, custom animations, and mobile-first design.</p>
-              <div class="skill-tags">
-                <span class="tag-item">Flexbox</span>
-                <span class="tag-item">Grid</span>
-                <span class="tag-item">Responsive Design</span>
-              </div>
-            </div>
-          </article>
+                <p class="text-slate-300 text-base md:text-lg max-w-2xl leading-relaxed mb-6">
+                  Next.js, React, JavaScript, Node.js | Building AI-Powered Web Applications. Information Technology student building responsive, modern websites and web applications while taking on freelance projects.
+                </p>
 
-          <!-- Skill Card 3: JavaScript -->
-          <article class="spotlight-card skill-card" data-category="frontend">
-            <div class="skill-card-inner">
-              <div class="skill-icon-wrap" style="color: #f0db4f;">
-                  <svg viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M3 3h18v18H3V3zm13.7 13.7c1.3 0 2.2-.6 2.2-1.8 0-1.1-.8-1.6-2.1-2.1l-.7-.3c-.8-.3-1.2-.6-1.2-1.1 0-.6.5-1 1.2-1 .7 0 1.4.3 1.9.8l1.1-1.4c-.8-.7-1.8-1.1-3-1.1-1.8 0-3 1.1-3 2.6 0 1.2.8 1.9 2.3 2.4l.7.3c.9.3 1.4.7 1.4 1.3 0 .7-.6 1.1-1.5 1.1-1 0-1.9-.5-2.5-1.2l-1.2 1.3c.9 1.1 2.3 1.7 3.7 1.7zm-6.2.1c.7 0 1.4-.2 1.9-.6V8.6H12v6.2c0 .6-.3.9-.9.9-.4 0-.8-.1-1.1-.4l-.8 1.5c.7.5 1.7.7 2.6.7z"/>
-                  </svg>
-                </div>
-              <h3 class="skill-title">JavaScript</h3>
-              <span class="skill-accent-bar" style="background-color: #f0db4f;"></span>
-              <p class="skill-desc">DOM manipulation, ES6+ syntax, event-driven interactivity, and working with fetch/APIs.</p>
-              <div class="skill-tags">
-                <span class="tag-item">DOM Manipulation</span>
-                <span class="tag-item">ES6+</span>
-                <span class="tag-item">Fetch API</span>
-              </div>
-            </div>
-          </article>
-
-          <!-- Skill Card 4: React -->
-          <article class="spotlight-card skill-card" data-category="frontend">
-            <div class="skill-card-inner">
-              <div class="skill-icon-wrap" style="color: #61dafb;">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                    <ellipse cx="12" cy="12" rx="10" ry="4.2"></ellipse>
-                    <ellipse cx="12" cy="12" rx="10" ry="4.2" transform="rotate(60 12 12)"></ellipse>
-                    <ellipse cx="12" cy="12" rx="10" ry="4.2" transform="rotate(120 12 12)"></ellipse>
-                    <circle cx="12" cy="12" r="2" fill="currentColor"></circle>
-                  </svg>
-                </div>
-              <h3 class="skill-title">React</h3>
-              <span class="skill-accent-bar" style="background-color: #61dafb;"></span>
-              <p class="skill-desc">Building component-based UIs with hooks, state management, and reusable component patterns.</p>
-              <div class="skill-tags">
-                <span class="tag-item">Hooks</span>
-                <span class="tag-item">Component Architecture</span>
-                <span class="tag-item">State Management</span>
-              </div>
-            </div>
-          </article>
-
-          <!-- Skill Card 5: Bootstrap -->
-          <article class="spotlight-card skill-card" data-category="frontend">
-            <div class="skill-card-inner">
-              <div class="skill-icon-wrap" style="color: #7952b3;">
-                  <svg viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M4 5.5A2.5 2.5 0 0 1 6.5 3h11A2.5 2.5 0 0 1 20 5.5v13a2.5 2.5 0 0 1-2.5 2.5h-11A2.5 2.5 0 0 1 4 18.5v-13zm4.5 1.5v10h4.2c2.1 0 3.3-1 3.3-2.5 0-1-.6-1.8-1.6-2.1 1.1-.3 1.6-1.2 1.6-2.1 0-1.5-1.2-2.3-3.2-2.3H8.5zm2.3 1.9h1.7c.9 0 1.5.4 1.5 1.2s-.6 1.2-1.5 1.2h-1.7V8.9zm0 4.1h2c1 0 1.6.4 1.6 1.3 0 .9-.7 1.3-1.6 1.3h-2V13z"/>
-                  </svg>
-                </div>
-              <h3 class="skill-title">Bootstrap</h3>
-              <span class="skill-accent-bar" style="background-color: #7952b3;"></span>
-              <p class="skill-desc">Fast, consistent UI building with Bootstrap's grid system, components, and utility classes.</p>
-              <div class="skill-tags">
-                <span class="tag-item">Responsive Grid</span>
-                <span class="tag-item">Components</span>
-                <span class="tag-item">Utilities</span>
-              </div>
-            </div>
-          </article>
-
-          <!-- Skill Card 6: Tailwind CSS -->
-          <article class="spotlight-card skill-card" data-category="frontend">
-            <div class="skill-card-inner">
-              <div class="skill-icon-wrap" style="color: #38bdf8;">
-                  <svg viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12.001 4.8c-3.2 0-5.2 1.6-6 4.8 1.2-1.6 2.6-2.2 4.2-1.8.913.228 1.565.89 2.288 1.624C13.666 10.618 15.027 12 18.001 12c3.2 0 5.2-1.6 6-4.8-1.2 1.6-2.6 2.2-4.2 1.8-.913-.228-1.565-.89-2.288-1.624C16.336 6.182 14.975 4.8 12.001 4.8zm-6 7.2c-3.2 0-5.2 1.6-6 4.8 1.2-1.6 2.6-2.2 4.2-1.8.913.228 1.565.89 2.288 1.624 1.177 1.194 2.538 2.576 5.512 2.576 3.2 0 5.2-1.6 6-4.8-1.2 1.6-2.6 2.2-4.2 1.8-.913-.228-1.565-.89-2.288-1.624C10.336 13.382 8.975 12 6.001 12z"/>
-                  </svg>
-                </div>
-              <h3 class="skill-title">Tailwind CSS</h3>
-              <span class="skill-accent-bar" style="background-color: #38bdf8;"></span>
-              <p class="skill-desc">Utility-first styling for building custom designs quickly without leaving HTML.</p>
-              <div class="skill-tags">
-                <span class="tag-item">Utility-First</span>
-                <span class="tag-item">Responsive Design</span>
-                <span class="tag-item">Dark Mode</span>
-              </div>
-            </div>
-          </article>
-
-          <!-- Skill Card 7: TypeScript -->
-          <article class="spotlight-card skill-card" data-category="frontend">
-            <div class="skill-card-inner">
-              <div class="skill-icon-wrap" style="color: #3178c6;">
-                  <svg viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M3 3h18v18H3V3zm12.3 8.8h-2.1v6.7h-2.2v-6.7H8.9V9.7h6.4v2.1zm4.8 4.3c-.6.8-1.5 1.2-2.6 1.2-1.3 0-2.3-.5-2.9-1.5l1.6-1.1c.3.5.7.8 1.3.8.5 0 .9-.2.9-.6 0-.3-.2-.5-.8-.7l-.8-.3c-1.3-.5-1.9-1.1-1.9-2.2 0-1.2 1-2.1 2.5-2.1 1 0 1.8.4 2.4 1.1l-1.4 1.2c-.3-.4-.6-.6-1-.6-.4 0-.6.2-.6.4 0 .3.2.4.7.6l.7.3c1.4.5 2.1 1.2 2.1 2.3 0 .7-.3 1.4-.7 1.9z"/>
-                  </svg>
-                </div>
-              <h3 class="skill-title">TypeScript</h3>
-              <span class="skill-accent-bar" style="background-color: #3178c6;"></span>
-              <p class="skill-desc">Currently learning type-safe JavaScript — interfaces, basic types, and safer function signatures.</p>
-              <div class="skill-tags">
-                <span class="tag-item">Interfaces</span>
-                <span class="tag-item">Type Safety</span>
-                <span class="tag-item">Learning</span>
-              </div>
-            </div>
-          </article>
-
-          <!-- Skill Card 8: Node.js -->
-          <article class="spotlight-card skill-card" data-category="backend">
-            <div class="skill-card-inner">
-              <div class="skill-icon-wrap" style="color: #68a063;">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M12 2l8.5 4.9v9.8L12 21.5 3.5 16.7V6.9L12 2z"></path>
-                    <path d="M7.5 10.5L12 13l4.5-2.5"></path>
-                    <circle cx="12" cy="13" r="1.5" fill="currentColor"></circle>
-                  </svg>
-                </div>
-              <h3 class="skill-title">Node.js</h3>
-              <span class="skill-accent-bar" style="background-color: #68a063;"></span>
-              <p class="skill-desc">Backend basics — building simple servers, REST endpoints, and working with npm packages.</p>
-              <div class="skill-tags">
-                <span class="tag-item">Express Basics</span>
-                <span class="tag-item">REST APIs</span>
-                <span class="tag-item">npm</span>
-              </div>
-            </div>
-          </article>
-
-          <!-- Skill Card 9: Git & GitHub -->
-          <article class="spotlight-card skill-card" data-category="tools">
-            <div class="skill-card-inner">
-              <div class="skill-icon-wrap" style="color: #f05033;">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <line x1="6" y1="3" x2="6" y2="15"></line>
-                    <circle cx="18" cy="6" r="3"></circle>
-                    <circle cx="6" cy="18" r="3"></circle>
-                    <path d="M18 9a9 9 0 0 1-9 9"></path>
-                  </svg>
-                </div>
-              <h3 class="skill-title">Git &amp; GitHub</h3>
-              <span class="skill-accent-bar" style="background-color: #f05033;"></span>
-              <p class="skill-desc">Version control workflows — commits, branching, pull requests, and collaborating on shared repos.</p>
-              <div class="skill-tags">
-                <span class="tag-item">Version Control</span>
-                <span class="tag-item">Branching</span>
-                <span class="tag-item">Pull Requests</span>
-              </div>
-            </div>
-          </article>
-
-          <!-- Skill Card 10: WordPress & Elementor -->
-          <article class="spotlight-card skill-card" data-category="tools">
-            <div class="skill-card-inner">
-              <div class="skill-icon-wrap" style="color: #21759b;">
-                  <svg viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18.2a8.2 8.2 0 0 1-5-1.7l3.8-10.4 2.8 7.6 1.4-3.9.9 2.5a8.2 8.2 0 0 1-3.9 5.9zm5.3-7.5-1.4 4.1a8.2 8.2 0 0 1-2.2 2.3l3.6-9.8a8.1 8.1 0 0 1 0 3.4zM3.8 12a8.2 8.2 0 0 1 1.7-5l3.8 10.4a8.2 8.2 0 0 1-5.5-5.4zm8.2-8.2a8.2 8.2 0 0 1 5.4 2.1l-4 10.9-2.9-8.1.9-.1a.8.8 0 0 0 .8-.8.8.8 0 0 0-.8-.8h-2.8a.8.8 0 0 0-.8.8.8.8 0 0 0 .8.8l.9.1-1.3 3.6-2.1-5.8.9-.1a.8.8 0 0 0 .8-.8.8.8 0 0 0-.8-.8H5.8a8.2 8.2 0 0 1 6.2-2z"/>
-                  </svg>
-                </div>
-              <h3 class="skill-title">WordPress &amp; Elementor</h3>
-              <span class="skill-accent-bar" style="background-color: #21759b;"></span>
-              <p class="skill-desc">Building and customizing client websites with WordPress themes and the Elementor page builder.</p>
-              <div class="skill-tags">
-                <span class="tag-item">Page Builder</span>
-                <span class="tag-item">Custom Themes</span>
-                <span class="tag-item">Client Sites</span>
-              </div>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- ==========================================================================
-         4. Featured Projects
-         ========================================================================== -->
-    <section class="section" id="projects">
-      <div class="container">
-        <div class="section-header">
-          <span class="section-tag">Case Studies &amp; Code</span>
-          <h2 class="section-title">Featured Production Projects</h2>
-          <p class="section-subtitle">
-            A closer look at a real, deployed project — from problem to production.
-          </p>
-        </div>
-
-        <div class="projects-grid" style="max-width: 680px; margin-inline: auto;">
-          <!-- Project 1: Copyforge -->
-          <article class="project-card">
-            <div class="project-media-frame">
-              <span class="project-badge-float">
-                <span>Live</span>
-              </span>
-              <!-- Crisp Vector Mockup Graphic (Compact & Teal Palette) -->
-              <svg class="project-svg-preview" viewBox="0 28 400 180" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect y="28" width="400" height="180" fill="#0c1524"/>
-                <!-- Subtle background grid -->
-                <line x1="30" y1="40" x2="370" y2="40" stroke="rgba(45, 212, 191, 0.12)" stroke-dasharray="4 4"/>
-                <line x1="30" y1="120" x2="370" y2="120" stroke="rgba(45, 212, 191, 0.12)" stroke-dasharray="4 4"/>
-                <line x1="30" y1="200" x2="370" y2="200" stroke="rgba(45, 212, 191, 0.12)" stroke-dasharray="4 4"/>
-                
-                <!-- Left panel: Brand Voice Input -->
-                <rect x="35" y="45" width="150" height="150" rx="10" fill="rgba(15, 27, 45, 0.95)" stroke="rgba(45, 212, 191, 0.35)"/>
-                <circle cx="55" cy="65" r="5" fill="#2DD4BF"/>
-                <rect x="68" y="62" width="70" height="6" rx="3" fill="#ffffff"/>
-                <rect x="52" y="82" width="55" height="14" rx="7" fill="rgba(45, 212, 191, 0.15)" stroke="rgba(45, 212, 191, 0.3)"/>
-                <rect x="113" y="82" width="58" height="14" rx="7" fill="rgba(94, 234, 212, 0.15)" stroke="rgba(94, 234, 212, 0.3)"/>
-                <rect x="52" y="106" width="115" height="4" rx="2" fill="rgba(255, 255, 255, 0.4)"/>
-                <rect x="52" y="118" width="95" height="4" rx="2" fill="rgba(255, 255, 255, 0.25)"/>
-                <rect x="52" y="130" width="105" height="4" rx="2" fill="rgba(255, 255, 255, 0.25)"/>
-                <rect x="52" y="152" width="116" height="24" rx="6" fill="url(#cf-btn-grad)"/>
-                <rect x="80" y="161" width="60" height="6" rx="3" fill="#0F1B2D"/>
-
-                <!-- Connecting AI flow curve -->
-                <path d="M185 120 C 205 120, 205 120, 220 120" stroke="url(#cf-flow-grad)" stroke-width="2.5" stroke-dasharray="3 3"/>
-
-                <!-- Right panel: Generated Copy Output -->
-                <rect x="220" y="45" width="145" height="150" rx="10" fill="rgba(15, 27, 45, 0.95)" stroke="rgba(94, 234, 212, 0.35)"/>
-                <circle cx="238" cy="65" r="5" fill="#5EEAD4"/>
-                <rect x="250" y="62" width="75" height="6" rx="3" fill="#ffffff"/>
-                <rect x="235" y="85" width="115" height="5" rx="2.5" fill="#2DD4BF"/>
-                <rect x="235" y="98" width="100" height="5" rx="2.5" fill="rgba(255, 255, 255, 0.6)"/>
-                <rect x="235" y="110" width="110" height="4" rx="2" fill="rgba(255, 255, 255, 0.35)"/>
-                <rect x="235" y="122" width="90" height="4" rx="2" fill="rgba(255, 255, 255, 0.35)"/>
-                <rect x="235" y="134" width="105" height="4" rx="2" fill="rgba(255, 255, 255, 0.2)"/>
-                <rect x="235" y="152" width="50" height="18" rx="4" fill="rgba(45, 212, 191, 0.15)" stroke="rgba(45, 212, 191, 0.3)"/>
-                <rect x="292" y="152" width="58" height="18" rx="4" fill="rgba(94, 234, 212, 0.15)" stroke="rgba(94, 234, 212, 0.3)"/>
-
-                <defs>
-                  <linearGradient id="cf-btn-grad" x1="52" y1="152" x2="168" y2="176" gradientUnits="userSpaceOnUse">
-                    <stop stop-color="#2DD4BF"/>
-                    <stop offset="1" stop-color="#0d9488"/>
-                  </linearGradient>
-                  <linearGradient id="cf-flow-grad" x1="185" y1="120" x2="220" y2="120" gradientUnits="userSpaceOnUse">
-                    <stop stop-color="#2DD4BF"/>
-                    <stop offset="1" stop-color="#5EEAD4"/>
-                  </linearGradient>
-                </defs>
-              </svg>
-            </div>
-
-            <div class="project-content">
-              <div class="project-tags">
-                <span class="project-tag">HTML5</span>
-                <span class="project-tag">CSS3</span>
-                <span class="project-tag">JavaScript</span>
-                <span class="project-tag">Gemini API</span>
-              </div>
-
-              <h3 class="project-title">Copyforge</h3>
-              <p class="project-desc">
-                An AI-powered copywriting tool that generates on-brand product descriptions and social media posts for small businesses, based on custom brand voice guidelines you provide.
-              </p>
-
-              <div class="project-metric">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                  <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
-                </svg>
-                <span>Powered by Google Gemini API</span>
-              </div>
-
-              <div class="project-actions">
-                <button class="btn-details" data-project="copyforge">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                    <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
-                    <polyline points="2 17 12 22 22 17"></polyline>
-                    <polyline points="2 12 12 17 22 12"></polyline>
-                  </svg>
-                  <span>View Architecture</span>
-                </button>
-                <div style="display: flex; gap: 1.1rem; align-items: center;">
-                  <a href="https://copyforge.vercel.app/" target="_blank" rel="noopener noreferrer" class="project-link" title="Live Preview">
-                    <span>Live Demo</span>
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                      <line x1="7" y1="17" x2="17" y2="7"></line>
-                      <polyline points="7 7 17 7 17 17"></polyline>
+                <!-- Socials & Actions -->
+                <div class="hero-socials-row">
+                  <a href="https://github.com/Salmann-dev" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="GitHub">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2Z"></path>
                     </svg>
                   </a>
-                  <a href="https://github.com/Salmann-dev/Copyforge" target="_blank" rel="noopener noreferrer" class="project-link" title="Source Code">
-                    <span>GitHub</span>
+
+                  <a href="https://www.linkedin.com/in/muhammad-salman-09693a289/" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="LinkedIn">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M19 0H5a5 5 0 00-5 5v14a5 5 0 005 5h14a5 5 0 005-5V5a5 5 0 00-5-5zM8 19H5V8h3v11zM6.5 6.732c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zM20 19h-3v-5.604c0-3.368-4-3.113-4 0V19h-3V8h3v1.765c1.396-2.586 7-2.777 7 2.476V19z"></path>
+                    </svg>
+                  </a>
+
+                  <a href="mailto:Salman.connect001@gmail.com" class="social-icon-btn" aria-label="Email">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                      <polyline points="22,6 12,13 2,6"></polyline>
+                    </svg>
+                  </a>
+
+                  <a href="#contact" class="btn-contact-hero">
+                    <span>Contact Me</span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                      <line x1="5" y1="12" x2="19" y2="12"></line>
+                      <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
                   </a>
                 </div>
               </div>
-            </div>
-          </article>
+
+              <!-- Animated Scroll Down -->
+              <div class="scroll-down" id="scroll-down-btn" title="Scroll down">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+            </section>
+
+            <div class="custom-border"></div>
+
+            <!-- ==============================================================
+                 B. About Me Section (Alejandro Gomez Style)
+                 ============================================================== -->
+            <section class="section-anchor" id="about-me">
+              <div class="section-header-wrap">
+                <div class="section-title-lockup">
+                  <div class="section-icon-halo">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                      <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                    <span class="bg-about_me_green icon-blur" style="background-color: var(--about-me-green);"></span>
+                  </div>
+                  <h2 class="section-small-title">About Me</h2>
+                </div>
+
+                <h3 class="section-big-desc">
+                  I'm a <span style="color: var(--about-me-green);">frontend developer</span> specialized in <span style="color: var(--about-me-green);">Web &amp; Modern Frontends</span>
+                </h3>
+              </div>
+
+              <!-- Callout Status Banner -->
+              <div style="margin-bottom: 2rem; border-radius: 12px; border: 1px solid rgba(16, 185, 129, 0.3); background: #22273D; padding: 1.25rem; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem;">
+                <div style="display: flex; align-items: center; gap: 0.75rem;">
+                  <span class="status-ping-wrap" style="flex-shrink: 0;">
+                    <span class="status-ping-pulse"></span>
+                    <span class="status-ping-dot"></span>
+                  </span>
+                  <div>
+                    <p style="font-size: 0.75rem; font-family: var(--font-mono); color: #34d399; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;">Status // Open to Opportunities</p>
+                    <p style="font-size: 0.95rem; color: #fff; font-weight: 500; margin-top: 0.2rem;">Actively seeking internship opportunities, entry-level developer roles, and open-source or team collaborations.</p>
+                  </div>
+                </div>
+                <a href="#contact" class="btn btn-outline btn-sm" style="border-color: rgba(16, 185, 129, 0.4); color: #34d399;">Get in Touch</a>
+              </div>
+
+              <div class="about-content-grid">
+                <div class="about-text-col">
+                  <div>
+                    <h4 class="about-name-highlight">Muhammad Salman</h4>
+                    <p class="about-role-accent" style="color: #4ec9b0; font-family: var(--font-mono); font-size: 0.9rem;">
+                      Information Technology Student &amp; Front-End / Full-Stack Developer
+                    </p>
+                  </div>
+                  
+                  <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+                    <div style="display: flex; align-items: flex-start; gap: 0.5rem;">
+                      <span style="color: #34d399; font-family: var(--font-mono);">▹</span>
+                      <p class="about-p" style="margin: 0;">Information Technology student at the <strong>University of Balochistan</strong> with a strong focus on building fast, responsive, and user-centric web applications.</p>
+                    </div>
+                    <div style="display: flex; align-items: flex-start; gap: 0.5rem;">
+                      <span style="color: #34d399; font-family: var(--font-mono);">▹</span>
+                      <p class="about-p" style="margin: 0;">Specializing in front-end development using <strong>HTML, CSS, JavaScript, React, and Next.js</strong>, alongside serverless API integrations and custom UI design.</p>
+                    </div>
+                    <div style="display: flex; align-items: flex-start; gap: 0.5rem;">
+                      <span style="color: #34d399; font-family: var(--font-mono);">▹</span>
+                      <p class="about-p" style="margin: 0;">Learning by shipping—building, deploying, and refining real-world applications using modern workflows (<strong>Git, GitHub, Vercel</strong>).</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="about-side-cards">
+                  <div class="info-badge-card">
+                    <span class="badge-card-title">Education</span>
+                    <h4 class="badge-card-main">B.S. in Information Technology</h4>
+                    <p class="badge-card-sub">University of Balochistan (2023 — Expected 2027)</p>
+                  </div>
+
+                  <div class="info-badge-card">
+                    <span class="badge-card-title">Collegiate Affiliation</span>
+                    <h4 class="badge-card-main">Computer Science Society</h4>
+                    <p class="badge-card-sub">Technical Member &amp; Workshop Contributor</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Structured 3-Column Tech Stack Grid -->
+              <div style="margin-top: 3rem;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+                  <h4 style="font-size: 1.2rem; font-weight: 700; color: #fff; display: flex; align-items: center; gap: 0.5rem;">
+                    <span style="color: #569cd6; font-family: var(--font-mono);">&lt;stack&gt;</span>
+                    Technical Arsenal
+                    <span style="color: #569cd6; font-family: var(--font-mono);">&lt;/stack&gt;</span>
+                  </h4>
+                  <span style="font-size: 0.75rem; font-family: var(--font-mono); color: var(--gray-400);">3 Structured Categories</span>
+                </div>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.25rem;">
+                  <!-- Column 1 -->
+                  <div class="info-badge-card" style="border-color: rgba(78, 201, 176, 0.3);">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.25rem;">
+                      <span style="font-size: 0.7rem; font-family: var(--font-mono); padding: 2px 6px; border-radius: 4px; background: rgba(0,0,0,0.3); color: #858585;">Frontend Core</span>
+                      <span style="color: #4ec9b0; font-family: var(--font-mono); font-weight: bold; font-size: 0.8rem;">01</span>
+                    </div>
+                    <h5 style="color: #fff; font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem;">Languages &amp; Frameworks</h5>
+                    <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.4rem; font-size: 0.85rem; color: #cbd5e1;">
+                      <li><span style="color: #4ec9b0; font-family: var(--font-mono);">#</span> JavaScript (ES6+)</li>
+                      <li><span style="color: #4ec9b0; font-family: var(--font-mono);">#</span> React.js</li>
+                      <li><span style="color: #4ec9b0; font-family: var(--font-mono);">#</span> Next.js</li>
+                      <li><span style="color: #4ec9b0; font-family: var(--font-mono);">#</span> HTML5 &amp; CSS3</li>
+                      <li><span style="color: #4ec9b0; font-family: var(--font-mono);">#</span> Tailwind CSS</li>
+                    </ul>
+                  </div>
+
+                  <!-- Column 2 -->
+                  <div class="info-badge-card" style="border-color: rgba(86, 156, 214, 0.3);">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.25rem;">
+                      <span style="font-size: 0.7rem; font-family: var(--font-mono); padding: 2px 6px; border-radius: 4px; background: rgba(0,0,0,0.3); color: #858585;">Services &amp; Cloud</span>
+                      <span style="color: #569cd6; font-family: var(--font-mono); font-weight: bold; font-size: 0.8rem;">02</span>
+                    </div>
+                    <h5 style="color: #fff; font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem;">Backend &amp; APIs</h5>
+                    <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.4rem; font-size: 0.85rem; color: #cbd5e1;">
+                      <li><span style="color: #569cd6; font-family: var(--font-mono);">#</span> Serverless Functions</li>
+                      <li><span style="color: #569cd6; font-family: var(--font-mono);">#</span> REST APIs</li>
+                      <li><span style="color: #569cd6; font-family: var(--font-mono);">#</span> Google Gemini API</li>
+                      <li><span style="color: #569cd6; font-family: var(--font-mono);">#</span> Third-Party Integrations</li>
+                      <li><span style="color: #569cd6; font-family: var(--font-mono);">#</span> Node.js &amp; Express</li>
+                    </ul>
+                  </div>
+
+                  <!-- Column 3 -->
+                  <div class="info-badge-card" style="border-color: rgba(206, 145, 120, 0.3);">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.25rem;">
+                      <span style="font-size: 0.7rem; font-family: var(--font-mono); padding: 2px 6px; border-radius: 4px; background: rgba(0,0,0,0.3); color: #858585;">DevOps &amp; Tooling</span>
+                      <span style="color: #ce9178; font-family: var(--font-mono); font-weight: bold; font-size: 0.8rem;">03</span>
+                    </div>
+                    <h5 style="color: #fff; font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem;">Tools &amp; Deployment</h5>
+                    <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.4rem; font-size: 0.85rem; color: #cbd5e1;">
+                      <li><span style="color: #ce9178; font-family: var(--font-mono);">#</span> Git &amp; GitHub</li>
+                      <li><span style="color: #ce9178; font-family: var(--font-mono);">#</span> VS Code</li>
+                      <li><span style="color: #ce9178; font-family: var(--font-mono);">#</span> Vercel Platform</li>
+                      <li><span style="color: #ce9178; font-family: var(--font-mono);">#</span> WordPress</li>
+                      <li><span style="color: #ce9178; font-family: var(--font-mono);">#</span> Vite &amp; DevTools</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <div class="custom-border"></div>
+
+            <!-- ==============================================================
+                 C. Work Experience Section
+                 ============================================================== -->
+            <section class="section-anchor" id="work-experience">
+              <div class="section-header-wrap">
+                <div class="section-title-lockup">
+                  <div class="section-icon-halo">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                      <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+                    </svg>
+                    <span class="bg-work_experience_orange icon-blur" style="background-color: var(--work-experience-orange);"></span>
+                  </div>
+                  <h2 class="section-small-title">Work Experience</h2>
+                </div>
+
+                <h3 class="section-big-desc">
+                  <span style="color: var(--work-experience-orange);">Frontend Developer</span> with experience in the <span style="color: var(--work-experience-orange);">software industry</span>
+                </h3>
+              </div>
+
+              <div class="experience-list">
+                <div class="experience-timeline-line"></div>
+
+                <!-- Role 1 -->
+                <article class="experience-item">
+                  <div class="experience-bullet"></div>
+                  <div class="experience-role-header">
+                    <h4 class="experience-role-title">Freelance Web Developer | Self-Employed</h4>
+                    <span class="experience-date">2024 — Present</span>
+                  </div>
+                  <ul class="experience-bullets-ul">
+                    <li>Developed responsive client websites and user interfaces using HTML, CSS, JavaScript, React, and Tailwind CSS.</li>
+                    <li>Conducted web audits for SEO optimization, Core Web Vitals performance, and mobile accessibility compliance.</li>
+                    <li>Collaborated directly with small business owners from initial project scoping through design and deployment.</li>
+                  </ul>
+                </article>
+
+                <!-- Role 2 -->
+                <article class="experience-item">
+                  <div class="experience-bullet"></div>
+                  <div class="experience-role-header">
+                    <h4 class="experience-role-title">Technical Member | Computer Science Society, University of Balochistan</h4>
+                    <span class="experience-date">2023 — Present</span>
+                  </div>
+                  <ul class="experience-bullets-ul">
+                    <li>Contributed to organizing campus coding workshops, technical hackathons, and web development introductory sessions.</li>
+                    <li>Mentored junior students in core web technologies (HTML5, modern CSS layouts, and JavaScript basics).</li>
+                    <li>Collaborated with student developer groups on campus software initiatives and peer code reviews.</li>
+                  </ul>
+                </article>
+
+                <!-- Role 3 -->
+                <article class="experience-item" style="padding-bottom: 0;">
+                  <div class="experience-bullet"></div>
+                  <div class="experience-role-header">
+                    <h4 class="experience-role-title">BS Information Technology Scholar | University of Balochistan</h4>
+                    <span class="experience-date">2023 — Expected 2027</span>
+                  </div>
+                  <ul class="experience-bullets-ul">
+                    <li>Pursuing an intensive 4-year degree covering Software Engineering, Object-Oriented Programming, and Data Structures.</li>
+                    <li>Gained solid knowledge of relational database management systems (DBMS, SQL) and computer networking fundamentals.</li>
+                  </ul>
+                </article>
+              </div>
+            </section>
+
+            <div class="custom-border"></div>
+
+            <!-- ==============================================================
+                 D. Skills Section (Alejandro Gomez Skills Picker)
+                 ============================================================== -->
+            <section class="section-anchor" id="skills">
+              <div class="section-header-wrap">
+                <div class="section-title-lockup">
+                  <div class="section-icon-halo">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                      <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+                    </svg>
+                    <span class="bg-skills_purple icon-blur" style="background-color: var(--skills-purple);"></span>
+                  </div>
+                  <h2 class="section-small-title">Skills</h2>
+                </div>
+
+                <h3 class="section-big-desc">
+                  Front-End / Full-Stack Developer | Next.js, React, JavaScript, Node.js | Building AI-Powered Web Applications
+                </h3>
+              </div>
+
+              <div class="skills-wrapper">
+                <!-- Alejandro Gomez Skills Picker Bar -->
+                <div class="skills-picker-box">
+                  <button type="button" class="skill-tab-button active" data-skill-cat="Languages">Languages</button>
+                  <button type="button" class="skill-tab-button" data-skill-cat="Front">Front</button>
+                  <button type="button" class="skill-tab-button" data-skill-cat="Back">Back</button>
+                  <button type="button" class="skill-tab-button" data-skill-cat="Tools">Tools</button>
+                </div>
+
+                <!-- Dynamic Grid of Skills -->
+                <div class="skills-cards-grid" id="skills-cards-grid">
+                  <!-- Populated dynamically by script.js -->
+                </div>
+              </div>
+            </section>
+
+            <div class="custom-border"></div>
+
+            <!-- ==============================================================
+                 E. My Work Section (ONLY COPYFORGE AS REQUESTED!)
+                 ============================================================== -->
+            <section class="section-anchor my-work-section" id="my-work">
+              <div class="section-header-wrap">
+                <div class="section-title-lockup">
+                  <div class="section-icon-halo">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <polyline points="21 8 21 21 3 21 3 8"></polyline>
+                      <rect x="1" y="3" width="22" height="5"></rect>
+                      <line x1="10" y1="12" x2="14" y2="12"></line>
+                    </svg>
+                    <span class="bg-my_work_yellow icon-blur" style="background-color: var(--my-work-yellow);"></span>
+                  </div>
+                  <h2 class="section-small-title">My Work</h2>
+                </div>
+
+                <h3 class="section-big-desc">
+                  Featured production project: <span style="color: var(--my-work-yellow);">Copyforge</span> — an AI copywriting platform
+                </h3>
+              </div>
+
+              <!-- GlowCard Container for Copyforge -->
+              <div class="glow-card-container" id="copyforge-glow-card">
+                <div class="card-mouse-glow" id="copyforge-mouse-glow"></div>
+
+                <div class="work-showcase-layout">
+                  <div class="work-details-col">
+                    <div>
+                      <h4 class="work-project-name">Copyforge</h4>
+                      <p class="work-project-tagline">AI-Powered Copywriting Platform for Small Businesses</p>
+                    </div>
+
+                    <p class="work-project-desc">
+                      A full-stack copywriting web tool that generates on-brand product descriptions and platform-specific social media posts. Users define their brand voice parameters once, and Copyforge generates copy tailored to that tone — powered by Google's Gemini API through a secure serverless backend.
+                    </p>
+
+                    <ul class="work-highlights-list">
+                      <li class="work-highlight-item">
+                        <span class="bullet">✓</span>
+                        <span>Serverless proxy architecture (Vercel Functions) ensures Google Gemini API keys are never exposed to client browsers.</span>
+                      </li>
+                      <li class="work-highlight-item">
+                        <span class="bullet">✓</span>
+                        <span>Custom brand voice input allows users to produce copy that truly reflects their editorial tone.</span>
+                      </li>
+                      <li class="work-highlight-item">
+                        <span class="bullet">✓</span>
+                        <span>Clean, dependency-free UI built with plain semantic HTML5, CSS3, and JavaScript — achieving a 99/100 Lighthouse performance score.</span>
+                      </li>
+                    </ul>
+
+                    <div class="work-actions-row">
+                      <a href="https://copyforge.vercel.app/" target="_blank" rel="noopener noreferrer" class="btn-work-primary">
+                        <span>Launch Live App</span>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                          <line x1="7" y1="17" x2="17" y2="7"></line>
+                          <polyline points="7 7 17 7 17 17"></polyline>
+                        </svg>
+                      </a>
+
+                      <a href="https://github.com/Salmann-dev/Copyforge" target="_blank" rel="noopener noreferrer" class="btn-work-secondary">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                          <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2Z"></path>
+                        </svg>
+                        <span>View Source Code</span>
+                      </a>
+                    </div>
+                  </div>
+
+                  <!-- Mockup Vector Frame -->
+                  <div class="work-preview-col">
+                    <div class="work-mockup-frame">
+                      <svg viewBox="0 0 460 345" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: 100%;">
+                        <rect width="460" height="345" fill="#131726"/>
+                        <rect x="0" y="0" width="460" height="32" fill="#1b2034"/>
+                        <circle cx="20" cy="16" r="4.5" fill="#ef4444" opacity="0.8"/>
+                        <circle cx="36" cy="16" r="4.5" fill="#f59e0b" opacity="0.8"/>
+                        <circle cx="52" cy="16" r="4.5" fill="#10b981" opacity="0.8"/>
+                        <rect x="150" y="11" width="160" height="10" rx="5" fill="rgba(255,255,255,0.1)"/>
+                        
+                        <!-- Main Left Column -->
+                        <rect x="25" y="55" width="190" height="260" rx="8" fill="#1c2237" stroke="rgba(255, 220, 139, 0.2)"/>
+                        <rect x="42" y="75" width="90" height="10" rx="5" fill="#ffdc8b"/>
+                        <rect x="42" y="100" width="156" height="28" rx="5" fill="#131726" stroke="rgba(255,255,255,0.08)"/>
+                        <rect x="52" y="110" width="90" height="8" rx="4" fill="rgba(255,255,255,0.4)"/>
+                        
+                        <rect x="42" y="140" width="156" height="70" rx="5" fill="#131726" stroke="rgba(255,255,255,0.08)"/>
+                        <rect x="52" y="152" width="130" height="6" rx="3" fill="rgba(255,255,255,0.3)"/>
+                        <rect x="52" y="166" width="100" height="6" rx="3" fill="rgba(255,255,255,0.2)"/>
+                        
+                        <rect x="42" y="230" width="156" height="28" rx="6" fill="#ffdc8b"/>
+                        <rect x="80" y="240" width="80" height="8" rx="4" fill="#12141a"/>
+
+                        <!-- Connecting Wave -->
+                        <path d="M215 180 C 230 180, 230 180, 245 180" stroke="#ffdc8b" stroke-width="2" stroke-dasharray="3 3"/>
+
+                        <!-- Right Output Column -->
+                        <rect x="245" y="55" width="190" height="260" rx="8" fill="#1c2237" stroke="rgba(255, 220, 139, 0.2)"/>
+                        <rect x="262" y="75" width="110" height="10" rx="5" fill="#ffffff" opacity="0.9"/>
+                        <rect x="262" y="105" width="156" height="8" rx="4" fill="#ffdc8b" opacity="0.8"/>
+                        <rect x="262" y="125" width="150" height="6" rx="3" fill="rgba(255,255,255,0.6)"/>
+                        <rect x="262" y="140" width="145" height="6" rx="3" fill="rgba(255,255,255,0.5)"/>
+                        <rect x="262" y="155" width="155" height="6" rx="3" fill="rgba(255,255,255,0.5)"/>
+                        <rect x="262" y="170" width="115" height="6" rx="3" fill="rgba(255,255,255,0.4)"/>
+                        
+                        <rect x="262" y="200" width="70" height="22" rx="4" fill="rgba(255, 220, 139, 0.15)" stroke="rgba(255, 220, 139, 0.3)"/>
+                        <rect x="340" y="200" width="60" height="22" rx="4" fill="rgba(255,255,255,0.06)"/>
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <div class="custom-border"></div>
+
+            <!-- ==============================================================
+                 F. Contact Me Section (Alejandro Gomez Stacked Form)
+                 ============================================================== -->
+            <section class="section-anchor" id="contact" style="padding-bottom: 6rem;">
+              <div class="section-header-wrap">
+                <div class="section-title-lockup">
+                  <div class="section-icon-halo">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                      <polyline points="22,6 12,13 2,6"></polyline>
+                    </svg>
+                    <span class="bg-blue-400 icon-blur" style="background-color: var(--contact-blue);"></span>
+                  </div>
+                  <h2 class="section-small-title">Contact Me</h2>
+                </div>
+
+                <h3 class="section-big-desc">
+                  Get in <span style="color: var(--contact-blue);">contact</span> and let's <span style="color: var(--contact-blue);">work together</span>
+                </h3>
+              </div>
+
+              <div class="contact-form-container">
+                <form id="vscode-contact-form">
+                  <div class="stacked-inputs-group">
+                    
+                    <!-- Name Input -->
+                    <div class="floating-input-row">
+                      <input type="text" id="contact-name" class="floating-control" placeholder=" " required autocomplete="name">
+                      <label for="contact-name" class="floating-label">Name</label>
+                    </div>
+
+                    <!-- Email Input -->
+                    <div class="floating-input-row">
+                      <input type="email" id="contact-email" class="floating-control" placeholder=" " required autocomplete="email">
+                      <label for="contact-email" class="floating-label">Email</label>
+                    </div>
+
+                    <!-- Company / Service Focus -->
+                    <div class="floating-input-row">
+                      <input type="text" id="contact-company" class="floating-control" placeholder=" " autocomplete="organization">
+                      <label for="contact-company" class="floating-label">Company / Focus</label>
+                    </div>
+
+                    <!-- Message Textarea -->
+                    <div class="floating-input-row">
+                      <textarea id="contact-message" class="floating-control textarea-control" placeholder=" " required></textarea>
+                      <label for="contact-message" class="floating-label">Message</label>
+                    </div>
+
+                  </div>
+
+                  <div class="form-submit-row">
+                    <span style="font-size: 0.85rem; color: var(--gray-500);">Direct reach: Salman.connect001@gmail.com</span>
+                    <button type="submit" class="btn-send-message" id="submit-btn">Send</button>
+                  </div>
+                </form>
+              </div>
+            </section>
+
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+
+    </div>
 
     <!-- ==========================================================================
-         5. Experience & Engineering Milestones
+         3. BottomBar (VS Code Status Bar)
          ========================================================================== -->
-    <section class="section" id="experience">
-      <div class="container">
-        <div class="section-header">
-          <span class="section-tag">Career &amp; Proven Track Record</span>
-          <h2 class="section-title">Engineering Experience</h2>
-          <p class="section-subtitle">
-            Building real-world skills through freelance projects, campus involvement, and continuous learning.
-          </p>
-        </div>
-
-        <div class="timeline">
-          <!-- Timeline Item 1 -->
-          <div class="timeline-item">
-            <div class="timeline-node"></div>
-            <div class="timeline-card spotlight-card">
-              <div class="timeline-header">
-                <div>
-                  <h3 class="timeline-role">Freelance Web Developer</h3>
-                  <span class="timeline-company">Self-Employed</span>
-                </div>
-                <span class="timeline-period">2025</span>
-              </div>
-              <p class="timeline-desc">
-                Took on freelance web development and SEO audit projects for small clients — handling everything from initial builds to client communication and delivery.
-              </p>
-            </div>
-          </div>
-
-          <!-- Timeline Item 2 -->
-          <div class="timeline-item">
-            <div class="timeline-node"></div>
-            <div class="timeline-card spotlight-card">
-              <div class="timeline-header">
-                <div>
-                  <h3 class="timeline-role">Member</h3>
-                  <span class="timeline-company">Computer Science Society, University of Balochistan</span>
-                </div>
-                <span class="timeline-period">2023 — 2025</span>
-              </div>
-              <p class="timeline-desc">
-                Active member of the university's Computer Science Society, participating in workshops, tech events, and peer learning sessions.
-              </p>
-            </div>
-          </div>
-
-          <!-- Timeline Item 3 -->
-          <div class="timeline-item">
-            <div class="timeline-node"></div>
-            <div class="timeline-card spotlight-card">
-              <div class="timeline-header">
-                <div>
-                  <h3 class="timeline-role">BS Information Technology</h3>
-                  <span class="timeline-company">University of Balochistan</span>
-                </div>
-                <span class="timeline-period">2023 — Expected 2027</span>
-              </div>
-              <p class="timeline-desc">
-                Pursuing a BS in Information Technology, building a strong foundation in programming, web development, and core computer science concepts.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ==========================================================================
-         6. Interactive Contact Form Section
-         ========================================================================== -->
-    <section class="section" id="contact">
-      <div class="container">
-        <div class="section-header">
-          <span class="section-tag">Let's Connect</span>
-          <h2 class="section-title">Start a Conversation</h2>
-          <p class="section-subtitle">
-            Have a project in mind or looking for a seasoned developer? Send a direct message below.
-          </p>
-        </div>
-
-        <div class="contact-layout">
-          <!-- Left: Contact Details (Vertical List) -->
-          <div class="contact-info">
-            <div class="contact-list">
-              <!-- Direct Email -->
-              <div class="contact-list-item">
-                <div class="contact-item-icon">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                    <polyline points="22,6 12,13 2,6"></polyline>
-                  </svg>
-                </div>
-                <span class="contact-item-label">Direct Email</span>
-                <a href="mailto:Salman.connect001@gmail.com" class="contact-item-value">Salman.connect001@gmail.com</a>
-              </div>
-
-              <!-- Location -->
-              <div class="contact-list-item">
-                <div class="contact-item-icon">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                    <circle cx="12" cy="10" r="3"></circle>
-                  </svg>
-                </div>
-                <span class="contact-item-label">Location</span>
-                <span class="contact-item-value">Quetta, Pakistan (Open to Remote Worldwide)</span>
-              </div>
-
-              <!-- Response Time -->
-              <div class="contact-list-item">
-                <div class="contact-item-icon">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="12" cy="12" r="10"></circle>
-                    <polyline points="12 6 12 12 16 14"></polyline>
-                  </svg>
-                </div>
-                <span class="contact-item-label">Response Time</span>
-                <span class="contact-item-value">Usually within 24 hours</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Right: Interactive Glass Contact Form -->
-          <div class="contact-form-card">
-            <!-- Form State -->
-            <form id="portfolio-contact-form" novalidate>
-              <h3 class="form-title">Send a Message</h3>
-              <p class="form-desc">Fill out the fields below and I'll get back to you by email.</p>
-
-              <!-- Name Field with Floating Label -->
-              <div class="form-floating-group">
-                <input 
-                  type="text" 
-                  id="contact-name" 
-                  name="name" 
-                  class="form-floating-control" 
-                  placeholder="Your Full Name" 
-                  autocomplete="name" 
-                  required
-                >
-                <label for="contact-name" class="form-floating-label">Your Name</label>
-              </div>
-
-              <!-- Email Field with Floating Label -->
-              <div class="form-floating-group">
-                <input 
-                  type="email" 
-                  id="contact-email" 
-                  name="email" 
-                  class="form-floating-control" 
-                  placeholder="name@example.com" 
-                  autocomplete="email" 
-                  required
-                >
-                <label for="contact-email" class="form-floating-label">Email Address</label>
-              </div>
-
-              <!-- Project Type Radio Chips -->
-              <span class="form-section-label">Interested In:</span>
-              <div class="service-chips">
-                <div class="service-chip-item">
-                  <input type="radio" id="chip-webapp" name="service" value="webapp" class="service-chip-input" checked>
-                  <label for="chip-webapp" class="service-chip-label">Web App</label>
-                </div>
-                <div class="service-chip-item">
-                  <input type="radio" id="chip-frontend" name="service" value="frontend" class="service-chip-input">
-                  <label for="chip-frontend" class="service-chip-label">Frontend Dev</label>
-                </div>
-                <div class="service-chip-item">
-                  <input type="radio" id="chip-consulting" name="service" value="consulting" class="service-chip-input">
-                  <label for="chip-consulting" class="service-chip-label">Consulting</label>
-                </div>
-                <div class="service-chip-item">
-                  <input type="radio" id="chip-fulltime" name="service" value="fulltime" class="service-chip-input">
-                  <label for="chip-fulltime" class="service-chip-label">Full-time Role</label>
-                </div>
-              </div>
-
-              <!-- Message Field with Floating Label -->
-              <div class="form-floating-group">
-                <textarea 
-                  id="contact-message" 
-                  name="message" 
-                  class="form-floating-control" 
-                  placeholder="Your message details" 
-                  maxlength="500" 
-                  required
-                ></textarea>
-                <label for="contact-message" class="form-floating-label">Tell me about your project or goal...</label>
-              </div>
-
-              <div class="char-count-wrapper">
-                <span id="char-count">0 / 500</span>
-              </div>
-
-              <!-- Submit Button with Dynamic Spinner -->
-              <button type="submit" class="btn btn-primary btn-submit" id="submit-btn">
-                <span class="btn-text">Transmit Message</span>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                  <line x1="22" y1="2" x2="11" y2="13"></line>
-                  <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
-                </svg>
-                <span class="btn-spinner" aria-hidden="true"></span>
-              </button>
-            </form>
-
-            <!-- Submission Confirmation State -->
-            <div class="form-success-state" id="form-success-state" role="status" aria-live="polite">
-              <div class="success-icon-ring">
-                <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                  <polyline points="20 6 9 17 4 12"></polyline>
-                </svg>
-              </div>
-              <h4 class="success-title">Transmission Received!</h4>
-              <p class="success-desc">Thank you for reaching out. Your message has been encrypted and delivered. Expect a reply within 24 hours.</p>
-              <button type="button" class="btn btn-glass" id="form-reset-btn">Send Another Message</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <!-- ==========================================================================
-       7. Interactive Project Details Modal (<dialog>)
-       ========================================================================== -->
-  <dialog class="project-modal" id="project-modal">
-    <div class="modal-header">
-      <h3 class="modal-title" id="modal-title">Project Architecture</h3>
-      <button class="modal-close-btn" id="modal-close-btn" aria-label="Close modal window">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="18" y1="6" x2="6" y2="18"></line>
-          <line x1="6" y1="6" x2="18" y2="18"></line>
-        </svg>
-      </button>
-    </div>
-
-    <div class="modal-body">
-      <div class="modal-tags" id="modal-tags"></div>
-      <p class="modal-desc-full" id="modal-desc"></p>
-
-      <h4 style="font-size: 1rem; color: #fff; margin-bottom: 0.75rem; font-weight: 600;">Key Technical Highlights:</h4>
-      <ul class="modal-features-list" id="modal-features"></ul>
-
-      <div class="modal-footer">
-        <button type="button" class="btn btn-glass btn-sm" id="modal-footer-close">Dismiss</button>
-        <a href="#" class="btn btn-primary btn-sm" id="modal-live-btn" target="_blank" rel="noopener noreferrer">
-          <span>Launch Live App</span>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="7" y1="17" x2="17" y2="7"></line>
-            <polyline points="7 7 17 7 17 17"></polyline>
+    <footer class="vscode-bottombar">
+      <div class="bottombar-left">
+        <div class="status-badge status-remote-btn" title="Open a Remote Window">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="16 18 22 12 16 6"></polyline>
+            <polyline points="8 6 2 12 8 18"></polyline>
           </svg>
-        </a>
-      </div>
-    </div>
-  </dialog>
+        </div>
 
-  <!-- ==========================================================================
-       8. Footer Section
-       ========================================================================== -->
-  <footer class="site-footer">
-    <div class="container footer-container">
-      <p class="footer-copyright">
-        &copy; 2026 Salman. Built with Vanilla JS &amp; Modern Glassmorphism.
-      </p>
-
-      <div class="footer-socials">
-        <!-- GitHub -->
-        <a href="https://github.com/Salmann-dev" target="_blank" rel="noopener noreferrer" class="footer-social-btn" aria-label="GitHub Profile" title="GitHub">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+        <div class="status-badge" title="portfolio (Git) - main*">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="18" cy="18" r="3"></circle>
+            <circle cx="6" cy="6" r="3"></circle>
+            <path d="M6 9v12"></path>
+            <path d="M18 9a9 9 0 0 0-9 9"></path>
           </svg>
-        </a>
-        <!-- LinkedIn -->
-        <a href="https://www.linkedin.com/in/muhammad-salman-09693a289/" target="_blank" rel="noopener noreferrer" class="footer-social-btn" aria-label="LinkedIn Profile" title="LinkedIn">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
-            <rect x="2" y="9" width="4" height="12"></rect>
-            <circle cx="4" cy="4" r="2"></circle>
-          </svg>
-        </a>
-      </div>
-    </div>
-  </footer>
+          <span>main*</span>
+        </div>
 
-  <!-- Back to Top Button -->
-  <button class="back-to-top" id="back-to-top" aria-label="Back to top of page">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-      <polyline points="18 15 12 9 6 15"></polyline>
-    </svg>
-  </button>
+        <div class="status-badge hide-mobile" title="Synchronize Changes">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"></path>
+          </svg>
+        </div>
+
+        <div class="status-badge hide-mobile" title="0 Errors, 0 Warnings">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="8" x2="12" y2="12"></line>
+            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+          </svg>
+          <span>0</span>
+        </div>
+      </div>
+
+      <div class="bottombar-right">
+        <div class="status-badge hide-mobile" title="Select Indentation">
+          <span>Spaces: 2</span>
+        </div>
+
+        <div class="status-badge hide-mobile" title="Select Encoding">
+          <span>UTF-8</span>
+        </div>
+
+        <div class="status-badge hide-mobile" title="Select End of Line Sequence">
+          <span>CRLF</span>
+        </div>
+
+        <div class="status-badge hide-mobile" title="Select Language Mode">
+          <span>{ } TypeScript JSX</span>
+        </div>
+
+        <div class="status-badge" title="Click to run live server">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="2"></circle>
+            <path d="M16.24 7.76a6 6 0 0 1 0 8.49m-8.48-.01a6 6 0 0 1 0-8.49m11.31-2.82a10 10 0 0 1 0 14.14m-14.14 0a10 10 0 0 1 0-14.14"></path>
+          </svg>
+          <span style="margin-left: 2px;">Go Live</span>
+        </div>
+
+        <div class="status-badge" title="Notifications">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+            <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+          </svg>
+        </div>
+      </div>
+    </footer>
+
+  </div>
 
 </body>
 </html>
