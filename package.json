@@ -5,7 +5,6 @@
   "private": true,
   "scripts": {
     "dev": "node server.js",
-    "build": "node -e 'console.log(\"Build passed\")'",
     "start": "node server.js"
   },
   "dependencies": {
