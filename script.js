@@ -220,17 +220,18 @@ function initFileAndTabNavigation() {
 
   // File registry
   const fileRegistry = [
-    { target: 'hero', name: 'page.tsx', icon: '⚛', color: '#61dafb' },
-    { target: 'about-me', name: 'about-me.tsx', icon: '📄', color: '#7ee787' },
-    { target: 'work-experience', name: 'work-experience.tsx', icon: '💼', color: '#ffa28b' },
-    { target: 'skills', name: 'skills.tsx', icon: '⚡', color: '#939aff' },
-    { target: 'my-work', name: 'copyforge.tsx', icon: '✨', color: '#ffdc8b' },
-    { target: 'contact', name: 'contact-me.tsx', icon: '✉', color: '#38bdf8' }
+    { target: 'hero', name: 'Page.tsx', icon: '⚛', color: '#61dafb' },
+    { target: 'about-me', name: 'AboutMe.tsx', icon: '📄', color: '#7ee787' },
+    { target: 'work-experience', name: 'WorkExperience.tsx', icon: '💼', color: '#ffa28b' },
+    { target: 'skills', name: 'Skills.tsx', icon: '⚡', color: '#939aff' },
+    { target: 'my-work', name: 'Copyforge.tsx', icon: '✨', color: '#ffdc8b' },
+    { target: 'resume-analyzer', name: 'AiResumeAnalyzer.tsx', icon: '✨', color: '#ffdc8b' },
+    { target: 'contact', name: 'ContactMe.tsx', icon: '✉', color: '#38bdf8' }
   ];
 
   // State
   let openTabs = fileRegistry.map((f) => f.name);
-  let activeTab = 'page.tsx';
+  let activeTab = 'Page.tsx';
 
   function scrollActiveTabIntoView() {
     requestAnimationFrame(() => {
@@ -383,14 +384,14 @@ function initFileAndTabNavigation() {
   // Reopen buttons in Empty State
   if (reopenHeroBtn) {
     reopenHeroBtn.addEventListener('click', () => {
-      selectTab('page.tsx');
+      selectTab('Page.tsx');
     });
   }
 
   if (reopenAllBtn) {
     reopenAllBtn.addEventListener('click', () => {
       openTabs = fileRegistry.map((f) => f.name);
-      selectTab('page.tsx');
+      selectTab('Page.tsx');
     });
   }
 
@@ -424,7 +425,7 @@ function initFileAndTabNavigation() {
   const scrollDownBtn = document.getElementById('scroll-down-btn');
   if (scrollDownBtn) {
     scrollDownBtn.addEventListener('click', () => {
-      selectTab('about-me.tsx');
+      selectTab('AboutMe.tsx');
     });
   }
 
@@ -504,20 +505,21 @@ function initSkillsPicker() {
 }
 
 /* ==========================================================================
-   6. Mouse-Tracking GlowCard on Copyforge
+   6. Mouse-Tracking GlowCard on Project Cards
    ========================================================================== */
 function initGlowCard() {
-  const card = document.getElementById('copyforge-glow-card');
-  const glow = document.getElementById('copyforge-mouse-glow');
+  const cards = document.querySelectorAll('.glow-card-container');
+  cards.forEach((card) => {
+    const glow = card.querySelector('.card-mouse-glow');
+    if (!glow) return;
 
-  if (!card || !glow) return;
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
 
-  card.addEventListener('mousemove', (e) => {
-    const rect = card.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-
-    glow.style.background = `radial-gradient(400px circle at ${x}px ${y}px, rgba(255, 220, 139, 0.15), transparent 70%)`;
+      glow.style.background = `radial-gradient(400px circle at ${x}px ${y}px, rgba(255, 220, 139, 0.15), transparent 70%)`;
+    });
   });
 }
 
