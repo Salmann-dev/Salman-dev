@@ -39,6 +39,7 @@ import WorkExperience from './work-experience';
 import Copyforge from './copyforge';
 import ContactMe from './contact-me';
 import Terminal from './terminal';
+import ActivityBar from './components/ActivityBar';
 
 export interface EditorFile {
   id: string;
@@ -249,33 +250,39 @@ export default function VSCodePortfolioEditor(): React.JSX.Element {
     <div className="flex flex-col h-screen w-screen overflow-hidden bg-[#181818] text-[#cccccc] font-sans antialiased select-none">
       
       {/* =========================================================================
-          Top Title Bar (VS Code Header)
+          Top Title Bar (Official VS Code Header)
           ========================================================================= */}
-      <header className="h-9 min-h-[36px] bg-[#323233] border-b border-[#252526] flex items-center justify-between px-3 text-xs text-[#969696] z-30">
-        <div className="flex items-center gap-3">
-          <div className="flex items-center gap-1.5" title="Visual Studio Code">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" className="text-[#007ACC]">
+      <header className="h-8 bg-[#181a24] border-b border-[#2b3042] flex items-center justify-between px-2 space-x-3 select-none z-30">
+        <div className="flex items-center space-x-3">
+          {/* Blue VS Code icon at the extreme TOP-LEFT corner */}
+          <button
+            type="button"
+            className="flex items-center justify-center p-1 rounded hover:bg-white/10 transition-colors focus:outline-none"
+            title="Visual Studio Code"
+            aria-label="Visual Studio Code"
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" className="text-[#007ACC]">
               <path
                 d="M23.15 2.587L18.21.21a1.494 1.494 0 0 0-1.705.29l-9.46 8.63-4.43-3.37a.997.997 0 0 0-1.37.17l-1.02 1.25a.997.997 0 0 0 .17 1.37l3.75 2.85-3.75 2.85a.997.997 0 0 0-.17 1.37l1.02 1.25c.34.42.95.49 1.37.17l4.43-3.37 9.46 8.63c.48.44 1.15.55 1.705.29l4.94-2.377c.52-.25.85-.78.85-1.36V3.947c0-.58-.33-1.11-.85-1.36zM18 17.5l-6.5-5.5L18 6.5v11z"
                 fill="currentColor"
               />
             </svg>
-            <span className="font-semibold text-white/90 hidden sm:inline">VS Code</span>
-          </div>
+          </button>
 
-          <div className="hidden md:flex items-center gap-1 text-[11px] text-[#cccccc]/70 pl-2">
-            <span className="px-1.5 py-0.5 rounded hover:bg-[#3e3e42] hover:text-white cursor-pointer">File</span>
-            <span className="px-1.5 py-0.5 rounded hover:bg-[#3e3e42] hover:text-white cursor-pointer">Edit</span>
-            <span className="px-1.5 py-0.5 rounded hover:bg-[#3e3e42] hover:text-white cursor-pointer">Selection</span>
-            <span className="px-1.5 py-0.5 rounded hover:bg-[#3e3e42] hover:text-white cursor-pointer">View</span>
-            <span className="px-1.5 py-0.5 rounded hover:bg-[#3e3e42] hover:text-white cursor-pointer">Go</span>
-            <span className="px-1.5 py-0.5 rounded hover:bg-[#3e3e42] hover:text-white cursor-pointer">Run</span>
-            <span className="px-1.5 py-0.5 rounded hover:bg-[#3e3e42] hover:text-white cursor-pointer">Terminal</span>
-            <span className="px-1.5 py-0.5 rounded hover:bg-[#3e3e42] hover:text-white cursor-pointer">Help</span>
-          </div>
+          {/* Menu bar immediately to the right */}
+          <nav className="hidden md:flex items-center text-xs text-slate-300 gap-4">
+            <button type="button" className="px-1.5 py-0.5 rounded hover:bg-white/10 hover:text-white transition-colors cursor-pointer">File</button>
+            <button type="button" className="px-1.5 py-0.5 rounded hover:bg-white/10 hover:text-white transition-colors cursor-pointer">Edit</button>
+            <button type="button" className="px-1.5 py-0.5 rounded hover:bg-white/10 hover:text-white transition-colors cursor-pointer">Selection</button>
+            <button type="button" className="px-1.5 py-0.5 rounded hover:bg-white/10 hover:text-white transition-colors cursor-pointer">View</button>
+            <button type="button" className="px-1.5 py-0.5 rounded hover:bg-white/10 hover:text-white transition-colors cursor-pointer">Go</button>
+            <button type="button" className="px-1.5 py-0.5 rounded hover:bg-white/10 hover:text-white transition-colors cursor-pointer">Run</button>
+            <button type="button" onClick={() => handleOpenFile('terminal.tsx')} className="px-1.5 py-0.5 rounded hover:bg-white/10 hover:text-white transition-colors cursor-pointer">Terminal</button>
+            <button type="button" className="px-1.5 py-0.5 rounded hover:bg-white/10 hover:text-white transition-colors cursor-pointer">Help</button>
+          </nav>
         </div>
 
-        <div className="absolute left-1/2 -translate-x-1/2 pointer-events-none hidden lg:flex items-center gap-2 text-xs font-mono text-[#858585]">
+        <div className="absolute left-1/2 -translate-x-1/2 pointer-events-none hidden lg:flex items-center gap-2 text-xs font-mono text-slate-400">
           <span>Portfolio</span>
           <span>—</span>
           <span className="text-white">{activeTab || 'No open tabs'}</span>
@@ -285,7 +292,7 @@ export default function VSCodePortfolioEditor(): React.JSX.Element {
           <button
             type="button"
             onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-            className="p-1 rounded hover:bg-[#3e3e42] hover:text-white transition-colors"
+            className="p-1 rounded hover:bg-white/10 hover:text-white text-slate-400 transition-colors"
             title="Toggle Primary Side Bar (Ctrl+B)"
           >
             {isSidebarOpen ? (
@@ -308,92 +315,18 @@ export default function VSCodePortfolioEditor(): React.JSX.Element {
           ========================================================================= */}
       <div className="flex flex-1 overflow-hidden relative">
 
-        {/* Activity Bar (Left Rail) */}
-        <aside className="w-12 min-w-[48px] bg-[#252526] border-r border-[#1e1e1e] flex flex-col justify-between items-center py-2 z-20">
-          <div className="flex flex-col items-center gap-3 w-full">
-            <button
-              type="button"
-              onClick={() => {
-                if (activeActivity === 'explorer') {
-                  setIsSidebarOpen(!isSidebarOpen);
-                } else {
-                  setActiveActivity('explorer');
-                  setIsSidebarOpen(true);
-                }
-              }}
-              className={`p-2.5 rounded hover:text-white transition-colors relative w-full flex items-center justify-center ${
-                activeActivity === 'explorer' && isSidebarOpen
-                  ? 'text-white border-l-2 border-white'
-                  : 'text-[#858585]'
-              }`}
-              title="Explorer"
-            >
-              <FileCode2 className="w-5 h-5" />
-            </button>
-
-            <button
-              type="button"
-              onClick={() => setActiveActivity('search')}
-              className={`p-2.5 rounded hover:text-white transition-colors w-full flex items-center justify-center ${
-                activeActivity === 'search' ? 'text-white border-l-2 border-white' : 'text-[#858585]'
-              }`}
-              title="Search"
-            >
-              <Search className="w-5 h-5" />
-            </button>
-
-            <button
-              type="button"
-              onClick={() => setActiveActivity('git')}
-              className={`p-2.5 rounded hover:text-white transition-colors w-full flex items-center justify-center ${
-                activeActivity === 'git' ? 'text-white border-l-2 border-white' : 'text-[#858585]'
-              }`}
-              title="Source Control"
-            >
-              <GitBranch className="w-5 h-5" />
-            </button>
-
-            <button
-              type="button"
-              onClick={() => setActiveActivity('debug')}
-              className={`p-2.5 rounded hover:text-white transition-colors w-full flex items-center justify-center ${
-                activeActivity === 'debug' ? 'text-white border-l-2 border-white' : 'text-[#858585]'
-              }`}
-              title="Run and Debug"
-            >
-              <Bug className="w-5 h-5" />
-            </button>
-
-            <button
-              type="button"
-              onClick={() => setActiveActivity('extensions')}
-              className={`p-2.5 rounded hover:text-white transition-colors w-full flex items-center justify-center ${
-                activeActivity === 'extensions' ? 'text-white border-l-2 border-white' : 'text-[#858585]'
-              }`}
-              title="Extensions"
-            >
-              <Blocks className="w-5 h-5" />
-            </button>
-          </div>
-
-          <div className="flex flex-col items-center gap-3 w-full">
-            <button
-              type="button"
-              onClick={() => handleOpenFile('contact-me.tsx')}
-              className="p-2.5 rounded text-[#858585] hover:text-white transition-colors w-full flex items-center justify-center"
-              title="Accounts"
-            >
-              <User className="w-5 h-5" />
-            </button>
-            <button
-              type="button"
-              className="p-2.5 rounded text-[#858585] hover:text-white transition-colors w-full flex items-center justify-center"
-              title="Manage Settings"
-            >
-              <Settings className="w-5 h-5" />
-            </button>
-          </div>
-        </aside>
+        {/* Activity Bar (Far-Left Vertical Rail) */}
+        <ActivityBar
+          activeActivity={activeActivity}
+          onSelectActivity={(activity) => {
+            setActiveActivity(activity);
+            setIsSidebarOpen(true);
+          }}
+          isSidebarOpen={isSidebarOpen}
+          onToggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)}
+          onOpenAccounts={() => handleOpenFile('contact-me.tsx')}
+          onOpenSettings={() => handleOpenFile('package.json')}
+        />
 
         {/* Explorer Sidebar */}
         {isSidebarOpen && (
