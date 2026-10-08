@@ -57,7 +57,7 @@
 html, body {
   height: 100%;
   width: 100%;
-  overflow: hidden;
+  overflow-x: hidden;
   background-color: var(--dark-bg);
   color: var(--gray-500);
   font-family: var(--font-sans);
@@ -65,6 +65,16 @@ html, body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  overflow-x: hidden;
+  position: relative;
+}
+
+p, span, a, li, h1, h2, h3, h4, h5, h6, pre, code {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
 }
 
 /* Custom VS Code Scrollbars */
@@ -351,14 +361,9 @@ button {
   display: none;
 }
 
-@media (max-width: 768px) {
-  .explorer-sidebar {
-    position: absolute;
-    left: var(--activity-width);
-    top: 0;
-    bottom: 0;
-    box-shadow: 10px 0 30px rgba(0, 0, 0, 0.6);
-  }
+/* Sidebar Backdrop (Hidden on Desktop) */
+.sidebar-backdrop {
+  display: none;
 }
 
 .explorer-header {
@@ -502,16 +507,26 @@ button {
   overflow-y: hidden;
   user-select: none;
   z-index: 20;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.tabs-bar::-webkit-scrollbar {
+  display: none;
 }
 
 .tabs-list {
   display: flex;
   align-items: center;
+  flex-wrap: nowrap;
+  white-space: nowrap;
   height: 100%;
   flex: 1;
   min-width: 0;
   overflow-x: auto;
+  overflow-y: hidden;
   scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
 .tabs-list::-webkit-scrollbar {
@@ -521,6 +536,8 @@ button {
 .tab-item {
   display: flex;
   align-items: center;
+  flex-shrink: 0;
+  white-space: nowrap;
   gap: 0.45rem;
   padding: 0.4rem 0.85rem;
   border-right: 1px solid var(--dark-border);
@@ -655,7 +672,7 @@ button {
 }
 
 .hero-greeting {
-  font-size: clamp(2.8rem, 6vw, 4.25rem);
+  font-size: clamp(2rem, 6vw, 4.25rem);
   font-weight: 700;
   color: var(--white);
   letter-spacing: -0.03em;
@@ -904,18 +921,19 @@ button {
 }
 
 .section-small-title {
-  font-size: 1.5rem;
+  font-size: clamp(1.2rem, 2.5vw, 1.5rem);
   font-weight: 600;
   color: var(--white);
 }
 
 .section-big-desc {
-  font-size: clamp(1.8rem, 3.5vw, 2.75rem);
+  font-size: clamp(1.25rem, 3.5vw, 2.75rem);
   font-weight: 700;
   color: var(--white);
-  line-height: 1.2;
+  line-height: 1.25;
   letter-spacing: -0.025em;
-  max-width: 32ch;
+  max-width: 100%;
+  overflow-wrap: break-word;
 }
 
 /* ==========================================================================
@@ -1535,8 +1553,247 @@ button {
   border-radius: 2px;
 }
 
-@media (max-width: 640px) {
-  .status-badge.hide-mobile {
+/* ==========================================================================
+   13. Responsive Adaptations (Mobile & Tablet <= 768px)
+   Desktop layout above 768px remains untouched.
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  :root {
+    --activity-width: 44px;
+  }
+
+  /* Activity bar: slim (44px) with minimum 44x44px touch targets */
+  .activity-bar {
+    width: 44px;
+    min-width: 44px;
+    z-index: 46;
+  }
+
+  .activity-icon-btn {
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  /* Dim Backdrop for Explorer Drawer */
+  .sidebar-backdrop {
+    display: block;
+    position: fixed;
+    top: var(--topbar-height);
+    bottom: var(--bottombar-height);
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.65);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+    z-index: 45;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+  }
+
+  .sidebar-backdrop.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* Explorer Sidebar as Slide-in Drawer (~80% width) */
+  .explorer-sidebar {
+    position: fixed;
+    top: var(--topbar-height);
+    bottom: var(--bottombar-height);
+    left: 44px;
+    width: 80%;
+    max-width: 320px;
+    min-width: 0;
+    background-color: var(--dark-bg);
+    border-right: 1px solid var(--dark-border);
+    z-index: 50;
+    display: flex !important;
+    transform: translateX(calc(-100% - 44px));
+    transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
+    box-shadow: none;
+  }
+
+  .explorer-sidebar.drawer-open {
+    transform: translateX(0);
+    box-shadow: 12px 0 35px rgba(0, 0, 0, 0.75);
+  }
+
+  /* Tab Bar: free horizontal space on mobile */
+  .tabs-right-actions {
     display: none;
+  }
+
+  /* Main Content: full width, single column, 16px side padding */
+  .portfolio-container {
+    width: 100%;
+    max-width: 100%;
+    padding-inline: 16px;
+    box-sizing: border-box;
+  }
+
+  /* Stack Hero */
+  .hero-view {
+    min-height: auto;
+    padding-top: 2rem;
+    padding-bottom: 2.5rem;
+  }
+
+  .hero-socials-row {
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  /* Hide Hero vertical text strip / scroll down below 768px */
+  .hero-vertical-strip,
+  .vertical-strip,
+  .hero-strip,
+  .vertical-text,
+  .hero-side-text,
+  .scroll-down {
+    display: none !important;
+  }
+
+  /* Stack About */
+  .about-content-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    width: 100%;
+  }
+
+  .about-side-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+  }
+
+  .about-tech-stack-grid,
+  div[style*="grid-template-columns: repeat(auto-fit, minmax(260px, 1fr))"] {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+    width: 100% !important;
+  }
+
+  /* Stack Work Experience */
+  .experience-list {
+    width: 100%;
+  }
+
+  .experience-role-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+
+  /* Stack Skills */
+  .skills-wrapper {
+    width: 100%;
+  }
+
+  .skills-picker-box {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    width: 100%;
+  }
+
+  .skills-cards-grid {
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 0.75rem;
+    width: 100%;
+  }
+
+  /* Stack Projects (Copyforge) */
+  .work-showcase-layout {
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
+    width: 100%;
+  }
+
+  .work-details-col,
+  .work-preview-col {
+    width: 100%;
+  }
+
+  .work-mockup-frame {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .work-actions-row {
+    flex-direction: column;
+    width: 100%;
+    gap: 0.75rem;
+  }
+
+  .btn-work-primary,
+  .btn-work-secondary {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* Stack Contact */
+  .contact-form-container {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .stacked-inputs-group {
+    width: 100%;
+  }
+
+  .form-submit-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+    width: 100%;
+  }
+
+  .btn-send-message {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* Section padding and divider adjustments */
+  .section-anchor {
+    padding-top: 2.5rem;
+  }
+
+  .custom-border {
+    margin-block: 2.5rem;
+  }
+
+  /* Images, vectors, frames, and cards max-width 100% */
+  img,
+  svg,
+  .info-badge-card,
+  .experience-card,
+  .experience-item,
+  .skill-card,
+  .work-mockup-frame,
+  .contact-form-container,
+  .stacked-inputs-group,
+  .glow-card-container {
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+}
+
+/* Contact section bottom clearance so status bar never covers contact form */
+#contact {
+  padding-bottom: clamp(3.5rem, 8vw, 6rem);
+}
+
+.portfolio-container {
+  padding-bottom: 2.5rem;
+}
+
+/* Status Bar: hide right-hand items below 600px */
+@media (max-width: 600px) {
+  .status-badge.hide-mobile {
+    display: none !important;
   }
 }

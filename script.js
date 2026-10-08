@@ -120,12 +120,42 @@ function initActivityBarAndExplorer() {
   const explorerBtn = document.getElementById('activity-explorer-btn');
   const topbarSidebarToggle = document.getElementById('toggle-sidebar-btn');
   const explorerSidebar = document.getElementById('explorer-sidebar');
+  const backdrop = document.getElementById('sidebar-backdrop');
+
+  function isMobile() {
+    return window.innerWidth <= 768;
+  }
+
+  function openMobileDrawer() {
+    if (explorerSidebar) {
+      explorerSidebar.classList.add('drawer-open');
+      explorerSidebar.classList.remove('collapsed');
+    }
+    if (backdrop) backdrop.classList.add('active');
+    if (explorerBtn) explorerBtn.classList.add('active');
+  }
+
+  function closeMobileDrawer() {
+    if (explorerSidebar) {
+      explorerSidebar.classList.remove('drawer-open');
+    }
+    if (backdrop) backdrop.classList.remove('active');
+    if (explorerBtn) explorerBtn.classList.remove('active');
+  }
 
   function toggleSidebar() {
     if (!explorerSidebar) return;
-    explorerSidebar.classList.toggle('collapsed');
-    if (explorerBtn) {
-      explorerBtn.classList.toggle('active', !explorerSidebar.classList.contains('collapsed'));
+    if (isMobile()) {
+      if (explorerSidebar.classList.contains('drawer-open')) {
+        closeMobileDrawer();
+      } else {
+        openMobileDrawer();
+      }
+    } else {
+      explorerSidebar.classList.toggle('collapsed');
+      if (explorerBtn) {
+        explorerBtn.classList.toggle('active', !explorerSidebar.classList.contains('collapsed'));
+      }
     }
   }
 
@@ -136,6 +166,17 @@ function initActivityBarAndExplorer() {
   if (topbarSidebarToggle) {
     topbarSidebarToggle.addEventListener('click', toggleSidebar);
   }
+
+  if (backdrop) {
+    backdrop.addEventListener('click', closeMobileDrawer);
+  }
+
+  window.addEventListener('resize', () => {
+    if (!isMobile()) {
+      if (explorerSidebar) explorerSidebar.classList.remove('drawer-open');
+      if (backdrop) backdrop.classList.remove('active');
+    }
+  });
 
   // Folder collapse / expand in tree
   const folderHeaders = document.querySelectorAll('.folder-header');
@@ -191,6 +232,16 @@ function initFileAndTabNavigation() {
   let openTabs = fileRegistry.map((f) => f.name);
   let activeTab = 'page.tsx';
 
+  function scrollActiveTabIntoView() {
+    requestAnimationFrame(() => {
+      if (!tabsList) return;
+      const activeEl = tabsList.querySelector('.tab-item.active');
+      if (activeEl) {
+        activeEl.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
+      }
+    });
+  }
+
   function renderTabs() {
     if (!tabsList) return;
 
@@ -245,6 +296,7 @@ function initFileAndTabNavigation() {
     });
 
     updateTreeFiles();
+    scrollActiveTabIntoView();
   }
 
   function selectTab(fileName) {
@@ -315,6 +367,15 @@ function initFileAndTabNavigation() {
       const meta = fileRegistry.find((f) => f.target === target);
       if (meta) {
         selectTab(meta.name);
+      }
+      // Below 768px: close drawer on selecting a file
+      if (window.innerWidth <= 768) {
+        const sidebar = document.getElementById('explorer-sidebar');
+        const bdrop = document.getElementById('sidebar-backdrop');
+        const expBtn = document.getElementById('activity-explorer-btn');
+        if (sidebar) sidebar.classList.remove('drawer-open');
+        if (bdrop) bdrop.classList.remove('active');
+        if (expBtn) expBtn.classList.remove('active');
       }
     });
   });
