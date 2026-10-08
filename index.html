@@ -43,7 +43,7 @@
           <button type="button" class="menu-item-btn">View</button>
           <button type="button" class="menu-item-btn">Go</button>
           <button type="button" class="menu-item-btn">Run</button>
-          <button type="button" class="menu-item-btn">Terminal</button>
+          <button type="button" class="menu-item-btn" id="menu-terminal-btn">Terminal</button>
           <button type="button" class="menu-item-btn">Help</button>
         </nav>
       </div>
@@ -261,6 +261,10 @@
                     <span class="file-icon" style="color: #939aff;">⚡</span>
                     <span>Skills.tsx</span>
                   </div>
+                  <div class="tree-file" data-target="terminal">
+                    <span class="file-icon" style="color: #4ec9b0;">💻</span>
+                    <span>Terminal.tsx</span>
+                  </div>
                   <div class="tree-file" data-target="contact">
                     <span class="file-icon" style="color: #38bdf8;">✉</span>
                     <span>ContactMe.tsx</span>
@@ -321,6 +325,11 @@
             <div class="tab-item" data-target="skills" data-filename="skills.tsx" role="tab">
               <span style="color: #939aff;">⚡</span>
               <span>Skills.tsx</span>
+              <span class="tab-close-icon" title="Close tab">×</span>
+            </div>
+            <div class="tab-item" data-target="terminal" data-filename="Terminal.tsx" role="tab">
+              <span style="color: #4ec9b0;">💻</span>
+              <span>Terminal.tsx</span>
               <span class="tab-close-icon" title="Close tab">×</span>
             </div>
             <div class="tab-item" data-target="my-work" data-filename="copyforge.tsx" role="tab">
@@ -439,6 +448,14 @@
                       <line x1="5" y1="12" x2="19" y2="12"></line>
                       <polyline points="12 5 19 12 12 19"></polyline>
                     </svg>
+                  </a>
+
+                  <a href="#terminal" class="btn-contact-hero btn-hero-term" id="hero-terminal-btn" style="background: rgba(78, 201, 176, 0.15); border-color: rgba(78, 201, 176, 0.4); color: #4ec9b0;">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                      <polyline points="4 17 10 11 4 5"></polyline>
+                      <line x1="12" y1="19" x2="20" y2="19"></line>
+                    </svg>
+                    <span>Terminal</span>
                   </a>
                 </div>
               </div>
@@ -872,8 +889,111 @@
             <div class="custom-border"></div>
 
             <!-- ==============================================================
-                 F. Contact Me Section (Alejandro Gomez Stacked Form)
+                 T. Terminal Section (VS Code Local Terminal)
                  ============================================================== -->
+            <section class="section-anchor" id="terminal">
+              <div class="section-header-wrap">
+                <div class="section-title-lockup">
+                  <div class="section-icon-halo">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <polyline points="4 17 10 11 4 5"></polyline>
+                      <line x1="12" y1="19" x2="20" y2="19"></line>
+                    </svg>
+                    <span class="icon-blur" style="background-color: #4ec9b0;"></span>
+                  </div>
+                  <h2 class="section-small-title" style="color: #4ec9b0;">Terminal.tsx</h2>
+                </div>
+
+                <h3 class="section-big-desc">
+                  Interactive <span style="color: #4ec9b0;">VS Code Terminal</span> — 100% Local Client-Side Command Line
+                </h3>
+              </div>
+
+              <!-- VS Code Styled Terminal Panel -->
+              <div class="vscode-terminal-box" id="vscode-terminal-box">
+                <!-- Tab Header Bar (#252526) -->
+                <div class="terminal-tab-bar">
+                  <div class="terminal-tabs-left">
+                    <div class="terminal-tab active">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#4ec9b0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="4 17 10 11 4 5"></polyline>
+                        <line x1="12" y1="19" x2="20" y2="19"></line>
+                      </svg>
+                      <span>Terminal</span>
+                      <span class="terminal-badge">zsh</span>
+                    </div>
+                    <div class="terminal-tab secondary hide-mobile">
+                      <span>Output</span>
+                    </div>
+                    <div class="terminal-tab secondary hide-mobile">
+                      <span>Debug Console</span>
+                    </div>
+                    <div class="terminal-tab secondary hide-mobile">
+                      <span>Problems (0)</span>
+                    </div>
+                  </div>
+
+                  <div class="terminal-actions-right">
+                    <span class="term-tip hide-mobile">Tip: Press ↑ / ↓ for command history</span>
+                    <button type="button" class="term-btn" id="term-clear-btn" title="Clear Terminal">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="3 6 5 6 21 6"></polyline>
+                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                      </svg>
+                    </button>
+                    <button type="button" class="term-btn" id="term-maximize-btn" title="Maximize Terminal">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <polyline points="9 21 3 21 3 15"></polyline>
+                        <line x1="21" y1="3" x2="14" y2="10"></line>
+                        <line x1="3" y1="21" x2="10" y2="14"></line>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Terminal Scrollable Body (#1e1e1e) -->
+                <div class="terminal-body" id="terminal-body">
+                  <div class="terminal-output-list" id="terminal-output-list">
+                    <!-- Default Initial Welcome Banner -->
+                    <div class="term-entry">
+                      <div class="term-welcome-box">
+                        <div class="term-welcome-header">Muhammad Salman — Portfolio Interactive Terminal [v1.0.0]</div>
+                        <div class="term-welcome-text">
+                          Type <span class="term-cmd-inline">'help'</span> to see all available commands, or navigate previous commands with <span class="term-key-inline">↑/↓</span> arrows.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Active Command Prompt Line -->
+                  <form id="terminal-form" class="terminal-prompt-form">
+                    <label for="terminal-cli-input" class="terminal-prompt-prefix">salman@portfolio:~$</label>
+                    <input
+                      type="text"
+                      id="terminal-cli-input"
+                      class="terminal-cli-input"
+                      placeholder="Type 'help' for available commands..."
+                      autocomplete="off"
+                      spellcheck="false"
+                    />
+                  </form>
+                </div>
+
+                <!-- Quick Run Command Pills Footer -->
+                <div class="terminal-footer-pills">
+                  <span class="pills-label">Commands:</span>
+                  <button type="button" class="term-pill-btn" data-cmd="help">help</button>
+                  <button type="button" class="term-pill-btn" data-cmd="about">about</button>
+                  <button type="button" class="term-pill-btn" data-cmd="skills">skills</button>
+                  <button type="button" class="term-pill-btn" data-cmd="projects">projects</button>
+                  <button type="button" class="term-pill-btn" data-cmd="contact">contact</button>
+                  <button type="button" class="term-pill-btn" data-cmd="clear">clear</button>
+                </div>
+              </div>
+            </section>
+
+            <div class="custom-border"></div>
             <section class="section-anchor" id="contact" style="padding-bottom: 6rem;">
               <div class="section-header-wrap">
                 <div class="section-title-lockup">
@@ -971,6 +1091,14 @@
             <line x1="12" y1="16" x2="12.01" y2="16"></line>
           </svg>
           <span>0</span>
+        </div>
+
+        <div class="status-badge" id="statusbar-terminal-btn" title="Open Terminal" style="cursor: pointer; color: #4ec9b0;">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="4 17 10 11 4 5"></polyline>
+            <line x1="12" y1="19" x2="20" y2="19"></line>
+          </svg>
+          <span style="margin-left: 3px;">Terminal</span>
         </div>
       </div>
 

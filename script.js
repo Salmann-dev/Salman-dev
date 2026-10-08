@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initSkillsPicker();
   initGlowCard();
   initContactForm();
+  initInteractiveTerminal();
 });
 
 /* ==========================================================================
@@ -224,6 +225,7 @@ function initFileAndTabNavigation() {
     { target: 'about-me', name: 'AboutMe.tsx', icon: '📄', color: '#7ee787' },
     { target: 'work-experience', name: 'WorkExperience.tsx', icon: '💼', color: '#ffa28b' },
     { target: 'skills', name: 'Skills.tsx', icon: '⚡', color: '#939aff' },
+    { target: 'terminal', name: 'Terminal.tsx', icon: '💻', color: '#4ec9b0' },
     { target: 'my-work', name: 'Copyforge.tsx', icon: '✨', color: '#ffdc8b' },
     { target: 'resume-analyzer', name: 'AiResumeAnalyzer.tsx', icon: '✨', color: '#ffdc8b' },
     { target: 'contact', name: 'ContactMe.tsx', icon: '✉', color: '#38bdf8' }
@@ -598,3 +600,325 @@ function showToast(message) {
     toast.classList.remove('show');
   }, 4000);
 }
+
+/* ==========================================================================
+   9. Interactive Local Client-Side VS Code Terminal Engine
+   ========================================================================== */
+function initInteractiveTerminal() {
+  const terminalBox = document.getElementById('vscode-terminal-box');
+  const terminalBody = document.getElementById('terminal-body');
+  const outputList = document.getElementById('terminal-output-list');
+  const terminalForm = document.getElementById('terminal-form');
+  const cliInput = document.getElementById('terminal-cli-input');
+  const clearBtn = document.getElementById('term-clear-btn');
+  const maxBtn = document.getElementById('term-maximize-btn');
+  const pillBtns = document.querySelectorAll('.term-pill-btn');
+  const menuTermBtn = document.getElementById('menu-terminal-btn');
+  const statusbarTermBtn = document.getElementById('statusbar-terminal-btn');
+  const heroTermBtn = document.getElementById('hero-terminal-btn');
+
+  if (!cliInput || !terminalForm || !outputList) return;
+
+  const commandHistory = [];
+  let historyIndex = -1;
+
+  function scrollToBottom() {
+    requestAnimationFrame(() => {
+      if (terminalBody) {
+        terminalBody.scrollTop = terminalBody.scrollHeight;
+      }
+    });
+  }
+
+  function focusInput() {
+    cliInput.focus();
+  }
+
+  // Focus on clicking anywhere in terminal body
+  if (terminalBox) {
+    terminalBox.addEventListener('click', focusInput);
+  }
+
+  // Navigate to terminal from external triggers
+  function jumpToTerminal() {
+    const termSec = document.getElementById('terminal');
+    const viewport = document.getElementById('editor-viewport');
+    if (termSec && viewport) {
+      viewport.scrollTo({
+        top: termSec.offsetTop - 10,
+        behavior: 'smooth'
+      });
+      setTimeout(focusInput, 300);
+    }
+  }
+
+  if (menuTermBtn) {
+    menuTermBtn.addEventListener('click', jumpToTerminal);
+  }
+
+  if (statusbarTermBtn) {
+    statusbarTermBtn.addEventListener('click', jumpToTerminal);
+  }
+
+  if (heroTermBtn) {
+    heroTermBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      jumpToTerminal();
+    });
+  }
+
+  // Clear output
+  if (clearBtn) {
+    clearBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      outputList.innerHTML = '';
+      focusInput();
+    });
+  }
+
+  // Maximize / restore size
+  if (maxBtn) {
+    maxBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (terminalBox) {
+        terminalBox.classList.toggle('maximized');
+        scrollToBottom();
+      }
+    });
+  }
+
+  // Keyboard navigation through command history (Arrow Up / Down)
+  cliInput.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      if (commandHistory.length === 0) return;
+      const nextIndex = historyIndex + 1;
+      if (nextIndex < commandHistory.length) {
+        historyIndex = nextIndex;
+        cliInput.value = commandHistory[commandHistory.length - 1 - nextIndex];
+      }
+    } else if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      if (historyIndex > 0) {
+        historyIndex = historyIndex - 1;
+        cliInput.value = commandHistory[commandHistory.length - 1 - historyIndex];
+      } else if (historyIndex === 0) {
+        historyIndex = -1;
+        cliInput.value = '';
+      }
+    }
+  });
+
+  // Local command execution switch
+  function executeCommand(raw) {
+    const trimmed = raw.trim();
+    const normalized = trimmed.toLowerCase();
+
+    if (!trimmed) return;
+
+    commandHistory.push(trimmed);
+    historyIndex = -1;
+    cliInput.value = '';
+
+    if (normalized === 'clear') {
+      outputList.innerHTML = '';
+      scrollToBottom();
+      return;
+    }
+
+    const timeStr = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+    let responseHtml = '';
+
+    switch (normalized) {
+      case 'help':
+        responseHtml = `
+          <div style="display: flex; flex-direction: column; gap: 0.5rem; font-size: 12px; color: #cbd5e1;">
+            <div style="display: flex; align-items: center; gap: 6px; color: #38bdf8; font-weight: 600;">
+              <span>Available Commands:</span>
+            </div>
+            <div class="term-help-grid">
+              <span style="color: #4ec9b0; font-weight: 700;">help</span>
+              <span style="color: #94a3b8;">Lists all available commands with short descriptions.</span>
+
+              <span style="color: #4ec9b0; font-weight: 700;">about</span>
+              <span style="color: #94a3b8;">Outputs bio for Muhammad Salman (Front-End / Full-Stack IT Student &amp; Developer).</span>
+
+              <span style="color: #4ec9b0; font-weight: 700;">skills</span>
+              <span style="color: #94a3b8;">Displays core tech stack (Next.js, React, JavaScript, Node.js, Tailwind CSS, Git).</span>
+
+              <span style="color: #4ec9b0; font-weight: 700;">projects</span>
+              <span style="color: #94a3b8;">Lists key portfolio projects (CopyForge, AI Resume Analyzer) with links.</span>
+
+              <span style="color: #4ec9b0; font-weight: 700;">contact</span>
+              <span style="color: #94a3b8;">Outputs email, GitHub, and LinkedIn links.</span>
+
+              <span style="color: #4ec9b0; font-weight: 700;">clear</span>
+              <span style="color: #94a3b8;">Clears past terminal output.</span>
+            </div>
+          </div>
+        `;
+        break;
+
+      case 'about':
+        responseHtml = `
+          <div style="display: flex; flex-direction: column; gap: 0.5rem; font-size: 12px; color: #cbd5e1; padding-left: 0.25rem;">
+            <div style="color: #4ec9b0; font-weight: 700;">Muhammad Salman — Bio &amp; Profile</div>
+            <p style="color: #cbd5e1; line-height: 1.6; margin: 0;">
+              Front-End / Full-Stack IT Student &amp; Developer pursuing studies at the <strong style="color: #fff;">University of Balochistan</strong>. Specialized in engineering fast, responsive, and intuitive web applications with modern React, Next.js, and TypeScript. Passionate about elegant developer experiences, clean component architecture, and dark-themed UI systems.
+            </p>
+            <div style="display: flex; flex-wrap: wrap; gap: 0.75rem; font-size: 11px; color: #94a3b8; padding-top: 0.25rem;">
+              <span>📍 Balochistan, Pakistan</span>
+              <span>🎓 BS Information Technology (2023 — 2027)</span>
+              <span>💼 Open to Roles &amp; Freelance Opportunities</span>
+            </div>
+          </div>
+        `;
+        break;
+
+      case 'skills':
+        responseHtml = `
+          <div style="display: flex; flex-direction: column; gap: 0.5rem; font-size: 12px; color: #cbd5e1; padding-left: 0.25rem;">
+            <div style="color: #38bdf8; font-weight: 700;">Core Tech Stack &amp; Competencies:</div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0.5rem; margin-top: 0.25rem;">
+              <div class="term-card">
+                <div style="color: #4ec9b0; font-weight: 700; margin-bottom: 2px;">Frontend Engineering</div>
+                <div style="color: #94a3b8; font-size: 11.5px;">Next.js, React, JavaScript (ES6+), TypeScript, Tailwind CSS, HTML5, CSS3</div>
+              </div>
+              <div class="term-card">
+                <div style="color: #38bdf8; font-weight: 700; margin-bottom: 2px;">Backend &amp; APIs</div>
+                <div style="color: #94a3b8; font-size: 11.5px;">Node.js, Express, REST APIs, Serverless Functions</div>
+              </div>
+              <div class="term-card">
+                <div style="color: #ffdc8b; font-weight: 700; margin-bottom: 2px;">Version Control &amp; Tooling</div>
+                <div style="color: #94a3b8; font-size: 11.5px;">Git, GitHub, VS Code, npm, Vite, Vercel</div>
+              </div>
+              <div class="term-card">
+                <div style="color: #c084fc; font-weight: 700; margin-bottom: 2px;">Design &amp; Architecture</div>
+                <div style="color: #94a3b8; font-size: 11.5px;">Responsive UI, Component Architecture, Clean Code</div>
+              </div>
+            </div>
+          </div>
+        `;
+        break;
+
+      case 'projects':
+        responseHtml = `
+          <div style="display: flex; flex-direction: column; gap: 0.6rem; font-size: 12px; color: #cbd5e1; padding-left: 0.25rem;">
+            <div style="color: #ffdc8b; font-weight: 700;">Featured Portfolio Projects:</div>
+
+            <div class="term-card">
+              <div class="term-card-title">
+                <span>1. CopyForge</span>
+                <span style="font-size: 10px; padding: 2px 6px; border-radius: 4px; background: rgba(255, 220, 139, 0.15); color: #ffdc8b; border: 1px solid rgba(255, 220, 139, 0.25);">Full-Stack Web App</span>
+              </div>
+              <div class="term-card-desc">
+                AI-powered copywriting web tool that creates tailored product descriptions and marketing copy for small businesses. Built with a serverless backend proxy for secure requests.
+              </div>
+              <div style="font-size: 11px; color: #94a3b8; margin-top: 4px;">
+                <strong style="color: #cbd5e1;">Tech:</strong> Next.js, React, Tailwind CSS, Serverless API
+              </div>
+              <div style="display: flex; gap: 1rem; margin-top: 6px; font-size: 11px;">
+                <a href="https://copyforge.vercel.app/" target="_blank" rel="noopener noreferrer" class="term-link">🔗 Live Demo ↗</a>
+                <a href="https://github.com/Salmann-dev/Copyforge" target="_blank" rel="noopener noreferrer" class="term-link">💻 Source Code ↗</a>
+              </div>
+            </div>
+
+            <div class="term-card">
+              <div class="term-card-title">
+                <span>2. AI Resume Analyzer</span>
+                <span style="font-size: 10px; padding: 2px 6px; border-radius: 4px; background: rgba(78, 201, 176, 0.15); color: #4ec9b0; border: 1px solid rgba(78, 201, 176, 0.25);">Python + Web App</span>
+              </div>
+              <div class="term-card-desc">
+                Evaluates resumes against job descriptions, extracting text with pdfplumber and python-docx to generate match scores, missing keywords, and actionable recommendations.
+              </div>
+              <div style="font-size: 11px; color: #94a3b8; margin-top: 4px;">
+                <strong style="color: #cbd5e1;">Tech:</strong> Python, Flask, pdfplumber, python-docx, REST API
+              </div>
+              <div style="display: flex; gap: 1rem; margin-top: 6px; font-size: 11px;">
+                <a href="https://ai-resume-analyzer-vki0.onrender.com/" target="_blank" rel="noopener noreferrer" class="term-link">🔗 Live Demo ↗</a>
+                <a href="https://github.com/Salmann-dev/ai-resume-analyzer" target="_blank" rel="noopener noreferrer" class="term-link">💻 Source Code ↗</a>
+              </div>
+            </div>
+          </div>
+        `;
+        break;
+
+      case 'contact':
+        responseHtml = `
+          <div style="display: flex; flex-direction: column; gap: 0.5rem; font-size: 12px; color: #cbd5e1; padding-left: 0.25rem;">
+            <div style="color: #38bdf8; font-weight: 700;">Contact &amp; Connect Links:</div>
+            <div style="display: flex; flex-direction: column; gap: 0.35rem; font-size: 12px; padding-left: 0.25rem;">
+              <div>
+                <span style="color: #94a3b8; display: inline-block; width: 75px;">Email:</span>
+                <a href="mailto:Salman.connect001@gmail.com" class="term-link">Salman.connect001@gmail.com</a>
+              </div>
+              <div>
+                <span style="color: #94a3b8; display: inline-block; width: 75px;">GitHub:</span>
+                <a href="https://github.com/Salmann-dev" target="_blank" rel="noopener noreferrer" class="term-link">https://github.com/Salmann-dev ↗</a>
+              </div>
+              <div>
+                <span style="color: #94a3b8; display: inline-block; width: 75px;">LinkedIn:</span>
+                <a href="https://www.linkedin.com/in/muhammad-salman-09693a289/" target="_blank" rel="noopener noreferrer" class="term-link">https://linkedin.com/in/muhammad-salman-09693a289/ ↗</a>
+              </div>
+            </div>
+          </div>
+        `;
+        break;
+
+      default:
+        responseHtml = `
+          <div class="term-error-msg">
+            <span>Command not found: <strong style="color: #fff;">${escapeHtml(trimmed)}</strong>. Type <span style="color: #4ec9b0; font-weight: 600;">'help'</span> for available commands.</span>
+          </div>
+        `;
+        break;
+    }
+
+    const entryDiv = document.createElement('div');
+    entryDiv.className = 'term-entry';
+    entryDiv.innerHTML = `
+      <div class="term-prompt-header">
+        <span class="term-prompt-user">salman@portfolio</span>
+        <span class="term-prompt-colon">:</span>
+        <span class="term-prompt-path">~</span>
+        <span class="term-prompt-dollar">$</span>
+        <span class="term-prompt-cmd">${escapeHtml(trimmed)}</span>
+        <span class="term-prompt-time">${timeStr}</span>
+      </div>
+      <div class="term-output-block">${responseHtml}</div>
+    `;
+
+    outputList.appendChild(entryDiv);
+    scrollToBottom();
+  }
+
+  function escapeHtml(str) {
+    return str
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;');
+  }
+
+  // Handle form submission
+  terminalForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    executeCommand(cliInput.value);
+  });
+
+  // Handle pill button clicks
+  pillBtns.forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const cmd = btn.getAttribute('data-cmd');
+      if (cmd) {
+        cliInput.value = cmd;
+        focusInput();
+        executeCommand(cmd);
+      }
+    });
+  });
+}
+

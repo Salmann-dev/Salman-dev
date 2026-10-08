@@ -38,6 +38,7 @@ import Skills from './skills';
 import WorkExperience from './work-experience';
 import Copyforge from './copyforge';
 import ContactMe from './contact-me';
+import Terminal from './terminal';
 
 export interface EditorFile {
   id: string;
@@ -91,6 +92,15 @@ export const WORKSPACE_FILES: EditorFile[] = [
     type: 'tsx',
   },
   {
+    id: 'terminal.tsx',
+    name: 'terminal.tsx',
+    folder: 'app',
+    icon: <FileCode2 className="w-4 h-4 text-[#4ec9b0]" />,
+    iconColor: '#4ec9b0',
+    badge: 'Interactive',
+    type: 'tsx',
+  },
+  {
     id: 'copyforge.tsx',
     name: 'copyforge.tsx',
     folder: 'projects',
@@ -129,6 +139,7 @@ export default function VSCodePortfolioEditor(): React.JSX.Element {
   // State Management for Tabs and Active View
   const [openTabs, setOpenTabs] = useState<string[]>([
     'page.tsx',
+    'terminal.tsx',
     'about-me.tsx',
     'skills.tsx',
     'work-experience.tsx',
@@ -202,6 +213,16 @@ export default function VSCodePortfolioEditor(): React.JSX.Element {
         return <WorkExperience />;
       case 'copyforge.tsx':
         return <Copyforge />;
+      case 'terminal.tsx':
+        return (
+          <div className="p-4 sm:p-6 max-w-4xl mx-auto space-y-4">
+            <div className="flex items-center justify-between pb-2 border-b border-[#2d2d2d] text-xs font-mono">
+              <span className="text-[#858585]">Interactive VS Code Terminal</span>
+              <span className="text-[#4ec9b0]">salman@portfolio</span>
+            </div>
+            <Terminal />
+          </div>
+        );
       case 'contact-me.tsx':
         return <ContactMe />;
       case 'package.json':
@@ -1126,6 +1147,15 @@ function HeroOverview({ onNavigate }: HeroOverviewProps): React.JSX.Element {
 
           <button
             type="button"
+            onClick={() => onNavigate('terminal.tsx')}
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-[#252526] hover:bg-[#2d2d2d] text-white border border-[#2d2d2d] text-sm font-medium transition-colors"
+          >
+            <span className="text-[#4ec9b0] font-mono font-bold">&gt;_</span>
+            <span>AI Terminal</span>
+          </button>
+
+          <button
+            type="button"
             onClick={handleCopyEmail}
             className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-[#252526] hover:bg-[#2d2d2d] text-[#858585] hover:text-white border border-[#2d2d2d] text-xs font-mono transition-colors"
           >
@@ -1224,6 +1254,24 @@ function HeroOverview({ onNavigate }: HeroOverviewProps): React.JSX.Element {
             </h3>
             <p className="text-xs text-[#858585] mt-1.5 leading-relaxed">
               Freelance deliverables, university CS society leadership, and project roadmap.
+            </p>
+          </div>
+
+          <div
+            onClick={() => onNavigate('terminal.tsx')}
+            className="p-5 rounded-xl border border-emerald-500/30 bg-[#252526] hover:border-emerald-400/60 hover:bg-[#2a2a2d] transition-all cursor-pointer group shadow-sm"
+          >
+            <div className="flex items-center justify-between mb-3">
+              <span className="text-xs font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                Interactive Console
+              </span>
+              <span className="text-emerald-400 font-mono font-bold text-sm group-hover:scale-110 transition-transform">&gt;_</span>
+            </div>
+            <h3 className="text-base font-bold text-white group-hover:text-emerald-300 transition-colors">
+              terminal.tsx
+            </h3>
+            <p className="text-xs text-[#858585] mt-1.5 leading-relaxed">
+              VS Code terminal with commands &amp; Google Gemini AI intelligence (&apos;ai &lt;question&gt;&apos;).
             </p>
           </div>
 
