@@ -65,7 +65,7 @@ export default function AboutMe(): React.JSX.Element {
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div className="flex items-start sm:items-center gap-3">
               <span className="relative flex h-3 w-3 mt-1 sm:mt-0 flex-shrink-0">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                <span className="animate-ping motion-reduce:animate-none absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
                 <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500" />
               </span>
               <div>
@@ -73,7 +73,7 @@ export default function AboutMe(): React.JSX.Element {
                   Status // Open to Opportunities
                 </p>
                 <p className="text-sm sm:text-base text-[#e1e1e1] font-medium mt-0.5">
-                  Actively seeking internship opportunities, entry-level developer roles, and open-source or team collaborations.
+                  Open to internships, developer roles, freelance projects, and open-source or team collaborations.
                 </p>
               </div>
             </div>

@@ -31,6 +31,8 @@ import {
   FileCog,
   FileSignature,
   File,
+  Github,
+  Linkedin,
 } from 'lucide-react';
 
 import AboutMe from './about-me';
@@ -975,9 +977,9 @@ function ReadmeView({ onNavigate }: { onNavigate: (file: string) => void }): Rea
       </div>
 
       <div className="prose prose-invert max-w-none space-y-4">
-        <h1 className="text-2xl font-bold text-white border-b border-[#2d2d2d] pb-2">
+        <h2 className="text-2xl font-bold text-white border-b border-[#2d2d2d] pb-2">
           Muhammad Salman | Developer Portfolio
-        </h1>
+        </h2>
         <p className="text-[#969696] leading-relaxed">
           Interactive VS Code theme developer portfolio showcasing projects, technical competencies, and background.
         </p>
@@ -1035,72 +1037,99 @@ function HeroOverview({ onNavigate }: HeroOverviewProps): React.JSX.Element {
       {/* Main Hero Card */}
       <div className="space-y-6">
         
-        {/* Exact User Requested Status Pill */}
-        <div className="flex items-center gap-2 text-sm md:text-base font-medium text-emerald-400 mb-3">
-          <span className="flex h-2 w-2 relative">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+        {/* Availability Badge */}
+        <div
+          role="status"
+          className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full border border-emerald-500/30 bg-[#252526]/80 text-emerald-400 text-xs sm:text-sm font-medium w-fit mb-2 shadow-sm backdrop-blur-sm"
+        >
+          <span className="relative flex h-2 w-2">
+            <span className="animate-ping motion-reduce:animate-none absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
           </span>
-          <span>Looking for a job</span>
-          <span className="text-slate-500">/</span>
-          <span className="text-blue-400 font-semibold">
-            Front-End / Full-Stack Developer
-          </span>
+          <span>Available for freelance &amp; new opportunities</span>
         </div>
 
-        {/* Hero Title */}
-        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-none">
-          Muhammad Salman
-        </h1>
+        {/* Hero Title & Subtitle */}
+        <div className="space-y-2">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-none">
+            Muhammad Salman
+          </h1>
+          <p className="text-xl sm:text-2xl font-semibold text-blue-400 tracking-tight">
+            Front-End / Full-Stack Developer
+          </p>
+        </div>
 
-        {/* Exact User Requested Bio Paragraph */}
+        {/* Tagline Bio Paragraph */}
         <p className="text-slate-300 text-base md:text-lg max-w-2xl leading-relaxed mb-6">
           Next.js, React, JavaScript, Node.js | Building AI-Powered Web Applications. Information Technology student building responsive, modern websites and web applications while taking on freelance projects.
         </p>
 
-        {/* Actions */}
-        <div className="flex flex-wrap items-center gap-3 pt-2">
+        {/* All Existing Links: GitHub, LinkedIn, Email, Contact Me, Terminal, Copy Email */}
+        <div className="flex flex-wrap items-center gap-2.5 sm:gap-3 pt-2">
+          <a
+            href="https://github.com/Salmann-dev"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="GitHub Profile"
+            className="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg bg-[#252526] hover:bg-[#2d2d2d] text-[#cccccc] hover:text-white border border-[#2d2d2d] text-xs sm:text-sm font-medium transition-colors"
+          >
+            <Github className="w-4 h-4" />
+            <span>GitHub</span>
+          </a>
+
+          <a
+            href="https://www.linkedin.com/in/muhammad-salman-09693a289/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="LinkedIn Profile"
+            className="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg bg-[#252526] hover:bg-[#2d2d2d] text-[#0077b5] hover:text-white border border-[#2d2d2d] text-xs sm:text-sm font-medium transition-colors"
+          >
+            <Linkedin className="w-4 h-4" />
+            <span>LinkedIn</span>
+          </a>
+
+          <a
+            href="mailto:Salman.connect001@gmail.com"
+            aria-label="Email"
+            className="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg bg-[#252526] hover:bg-[#2d2d2d] text-emerald-400 hover:text-white border border-[#2d2d2d] text-xs sm:text-sm font-medium transition-colors"
+          >
+            <Mail className="w-4 h-4" />
+            <span>Email</span>
+          </a>
+
           <button
             type="button"
             onClick={() => onNavigate('contact-me.tsx')}
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-medium text-sm transition-colors shadow-lg shadow-blue-500/20"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-medium text-xs sm:text-sm transition-colors shadow-lg shadow-blue-500/20"
           >
-            <span>Let&apos;s Connect</span>
+            <span>Contact Me</span>
             <ArrowRight className="w-4 h-4" />
           </button>
 
           <button
             type="button"
-            onClick={() => onNavigate('copyforge.tsx')}
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-[#252526] hover:bg-[#2d2d2d] text-white border border-[#2d2d2d] text-sm font-medium transition-colors"
-          >
-            <Sparkles className="w-4 h-4 text-amber-400" />
-            <span>Featured: Copyforge</span>
-          </button>
-
-          <button
-            type="button"
             onClick={() => onNavigate('terminal.tsx')}
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-[#252526] hover:bg-[#2d2d2d] text-white border border-[#2d2d2d] text-sm font-medium transition-colors"
+            className="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg bg-[#252526] hover:bg-[#2d2d2d] text-white border border-[#2d2d2d] text-xs sm:text-sm font-medium transition-colors"
           >
             <span className="text-[#4ec9b0] font-mono font-bold">&gt;_</span>
-            <span>AI Terminal</span>
+            <span>Terminal</span>
           </button>
 
           <button
             type="button"
             onClick={handleCopyEmail}
-            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-[#252526] hover:bg-[#2d2d2d] text-[#858585] hover:text-white border border-[#2d2d2d] text-xs font-mono transition-colors"
+            className="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg bg-[#252526] hover:bg-[#2d2d2d] text-[#858585] hover:text-white border border-[#2d2d2d] text-xs font-mono transition-colors"
           >
             {copied ? (
               <>
                 <Check className="w-3.5 h-3.5 text-emerald-400" />
-                <span className="text-emerald-400">Copied Email!</span>
+                <span className="text-emerald-400">Copied!</span>
               </>
             ) : (
               <>
                 <Copy className="w-3.5 h-3.5" />
-                <span>justsalmannn001@gmail.com</span>
+                <span className="hidden sm:inline">justsalmannn001@gmail.com</span>
+                <span className="sm:hidden">Copy Email</span>
               </>
             )}
           </button>

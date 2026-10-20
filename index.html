@@ -408,20 +408,26 @@
                  ============================================================== -->
             <section class="hero-view" id="hero">
               <div>
-                <h1 class="hero-greeting">
-                  Salman <span class="wave">👋</span>
-                </h1>
-
-                <div class="flex items-center gap-2 text-sm md:text-base font-medium text-emerald-400 mb-3">
-                  <span class="flex h-2 w-2 relative">
-                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                <!-- Availability Badge ABOVE Name -->
+                <div
+                  role="status"
+                  class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-emerald-500/30 bg-[#252526]/80 text-emerald-400 text-xs sm:text-sm font-medium w-fit mb-3 shadow-sm"
+                  style="backdrop-filter: blur(4px);"
+                >
+                  <span class="relative flex h-2 w-2">
+                    <span class="animate-ping motion-reduce:animate-none absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                     <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
                   </span>
-                  <span>Looking for a job</span>
-                  <span class="text-slate-500">/</span>
-                  <span class="text-blue-400 font-semibold">
+                  <span>Available for freelance &amp; new opportunities</span>
+                </div>
+
+                <div class="space-y-1 mb-3">
+                  <h1 class="hero-greeting text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-none">
+                    Muhammad Salman
+                  </h1>
+                  <p class="text-xl sm:text-2xl font-semibold text-blue-400 tracking-tight">
                     Front-End / Full-Stack Developer
-                  </span>
+                  </p>
                 </div>
 
                 <p class="text-slate-300 text-base md:text-lg max-w-2xl leading-relaxed mb-6">
@@ -507,7 +513,7 @@
                   </span>
                   <div>
                     <p style="font-size: 0.75rem; font-family: var(--font-mono); color: #34d399; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;">Status // Open to Opportunities</p>
-                    <p style="font-size: 0.95rem; color: #fff; font-weight: 500; margin-top: 0.2rem;">Actively seeking internship opportunities, entry-level developer roles, and open-source or team collaborations.</p>
+                    <p style="font-size: 0.95rem; color: #fff; font-weight: 500; margin-top: 0.2rem;">Open to internships, developer roles, freelance projects, and open-source or team collaborations.</p>
                   </div>
                 </div>
                 <a href="#contact" class="btn btn-outline btn-sm" style="border-color: rgba(16, 185, 129, 0.4); color: #34d399;">Get in Touch</a>
