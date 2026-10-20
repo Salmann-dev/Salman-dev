@@ -5,7 +5,7 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const filesToCopy = ['index.html', 'style.css', 'script.js'];
+const filesToCopy = ['index.html', 'style.css', 'script.js', 'opengraph-image.png', 'og-image.png'];
 const targetDirs = ['dist', 'public'];
 
 for (const dir of targetDirs) {

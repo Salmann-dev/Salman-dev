@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import React from 'react';
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://salman-dev-phi.vercel.app'),
   title: 'Salman | Full-Stack Developer ',
   description: 'An interactive VS Code-style full-stack developer portfolio.',
   openGraph: {
@@ -11,10 +12,10 @@ export const metadata: Metadata = {
     siteName: 'My Portfolio',
     images: [
       {
-        url: 'https://salman-dev-phi.vercel.app/og-image.png',
+        url: '/opengraph-image.png',
         width: 1200,
         height: 630,
-        alt: 'My Portfolio',
+        alt: 'Salman | Full-Stack Developer Portfolio',
       },
     ],
     locale: 'en_US',
@@ -24,7 +25,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'My Portfolio',
     description: 'An interactive VS Code-style full-stack developer portfolio.',
-    images: ['https://salman-dev-phi.vercel.app/og-image.png'],
+    images: ['/opengraph-image.png'],
   },
 };
 
