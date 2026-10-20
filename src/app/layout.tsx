@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import React from 'react';
 
 export const metadata: Metadata = {
-  title: 'My Portfolio',
+  title: 'Salman | Full-Stack Developer ',
   description: 'An interactive VS Code-style full-stack developer portfolio.',
   openGraph: {
     title: 'My Portfolio',
